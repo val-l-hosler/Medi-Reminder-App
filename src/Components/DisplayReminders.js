@@ -138,7 +138,7 @@ export default function DisplayReminders() {
 
     const ChipList = (params) => {
         params.arr.sort();
-        const unique = [...new Set(params)];
+        const unique = [...new Set(params.arr)];
 
         return (unique.map((index, i) => {
             const handleDelete = () => {
