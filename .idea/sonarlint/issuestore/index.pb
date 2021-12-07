@@ -15,15 +15,3 @@ G
 src/index.css,c\5\c5d38a62d1faae90a2acaa34b79a7ef365c917e4
 ;
 src/App.css,a\a\aa7165aefcf8ee3d73539e99ab007daf1aa18d8d
-N
-src/Components/AddReminder2.js,f\6\f64a829177bdc5a53a095d0595d7d1ecc3c239fb
-N
-src/Components/AddReminder1.js,b\e\be7604fda6e5c811fbede9c76e45a3bdb13a62f0
-N
-src/Components/AddReminder4.js,6\6\6652c0983661d8c7cb77a1c0a73d2e6428109561
-T
-$src/Components/DisplayMedications.js,d\5\d52f0900e11a3ba59030eb8d296d081c51ee4e66
-N
-src/Components/AddReminder3.js,9\b\9bff7d6fe054e3a0206aaf17f74ecf343a8edf64
-K
-src/Components/TimeInput.js,b\e\bef4133a614f8ff60ce6e03cc949dc04012a404d

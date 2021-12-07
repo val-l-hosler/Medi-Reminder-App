@@ -43,7 +43,7 @@ export default function Login() {
         m: 0,
         p: 0,
         width: "100%"
-    }
+    };
 
     const cardSx = {
         ml: 5,
