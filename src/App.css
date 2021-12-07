@@ -1,0 +1,26 @@
+.App {
+    min-width: 100vw;
+}
+
+.App-link {
+    color: #61dafb;
+}
+
+.Container {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    min-height: calc(100vh - 64px);
+}
+
+.Login {
+    align-items: center;
+    background: rgb(0, 114, 228);
+    background: linear-gradient(180deg, rgba(0, 114, 228, 1) 33%, rgba(0, 114, 228, 0.6979166666666667) 69%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh;
+}
+
