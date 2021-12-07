@@ -9,12 +9,8 @@ A
 src/setupTests.js,b\7\b7e8d8f421068b8d51c89805d2035e747be2ff17
 <
 src/index.js,f\9\f900edc44cb929c2267a16100a32851f6d5b477d
->
-yarn-error.log,f\3\f3b7336f891b6569b2fd4a67fd391439c7eb76e3
 G
 src/Components/pill.svg,8\b\8b88491f7f7656176ac05cc39ed1695cbe078685
-A
-package-lock.json,f\a\fa288d1472d29beccb489a676f68739ad365fc47
 9
 	yarn.lock,5\3\53585a096fe3a3b96321113856ae62602995a33b
 =
@@ -25,15 +21,5 @@ N
 src/Components/AddReminder2.js,f\6\f64a829177bdc5a53a095d0595d7d1ecc3c239fb
 N
 src/Components/AddReminder1.js,b\e\be7604fda6e5c811fbede9c76e45a3bdb13a62f0
-T
-$src/Components/DisplayMedications.js,d\5\d52f0900e11a3ba59030eb8d296d081c51ee4e66
-N
-src/Components/AddReminder5.js,f\6\f64f9f40fd846e46cba6353bee3dfd4a89f1310d
-K
-src/Components/TimeInput.js,b\e\bef4133a614f8ff60ce6e03cc949dc04012a404d
 N
 src/Components/AddReminder4.js,6\6\6652c0983661d8c7cb77a1c0a73d2e6428109561
-R
-"src/Components/DisplayReminders.js,9\2\9263879a4baadbd248923e5d15114020b3610387
-N
-src/Components/AddReminder3.js,9\b\9bff7d6fe054e3a0206aaf17f74ecf343a8edf64

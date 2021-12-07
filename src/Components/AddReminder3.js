@@ -22,8 +22,7 @@ const timesSuggestions = [
     {label: "2"},
     {label: "3"},
     {label: "4"},
-    {label: "5"},
-    {label: "More than 5"}
+    {label: "5"}
 ];
 
 const validationSchema = Yup.object().shape({
