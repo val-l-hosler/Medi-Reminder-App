@@ -6,7 +6,7 @@ This is a high-fidelity mockup of a mobile application for INFSCI 1730 - Indepen
 
 ### :warning: To simulate logging in, use the username "test" and the password "pass".
 
-### :warning: Some features may not display properly outside of a typical mobile screen size, so please use Chrome Dev Tools to mimic the correct screen size.
+### :warning: Some features may not display properly outside of a typical mobile screen size, so please either Chrome Dev Tools or add the website to an Android/iOS mobile device's home screen to view the intended layout. 
 
 ### 🧰 Tech Stack 
 1. React.js
