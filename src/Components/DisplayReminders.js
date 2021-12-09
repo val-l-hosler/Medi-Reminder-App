@@ -25,13 +25,7 @@ import SingleDayInput from "./SingleDayInput.js";
 import TimeInput from "./TimeInput.js";
 
 const validationSchema = Yup.object().shape({
-    daysOfWeek: Yup.array()
-        .of(
-            Yup.object().shape({
-                label: Yup.string(),
-                disabled: Yup.boolean()
-            })
-        )
+    daysOfWeek: Yup.string()
         .min(1, "Days of the week are required")
 });
 
