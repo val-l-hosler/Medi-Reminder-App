@@ -145,12 +145,12 @@ export default function DisplayReminders() {
                 // This removes all the other days
                 params.arr.splice(1);
 
-                for (let i = 0; i < parsed.length; i++) {
-                    if (parsed[i].id === params.id) {
+                parsed.forEach((index, i) => {
+                    if (index.id === params.id) {
                         // This resets the appropriate object's key/value pair with the updated list
                         parsed[i][params.objKey] = params.arr;
                     }
-                }
+                });
 
                 localStorage.setItem("reminders", JSON.stringify(parsed));
 
@@ -164,12 +164,12 @@ export default function DisplayReminders() {
                 // This removes the appropriate index from the array that is passed into the params
                 params.arr.splice(i, 1);
 
-                for (const ind of parsed) {
-                    if (ind.id === params.id) {
+                parsed.forEach((idx, j) => {
+                    if (idx.id === params.id) {
                         // This resets the appropriate object's key/value pair with the updated list
-                        parsed[i][params.objKey] = params.arr;
+                        parsed[j][params.objKey] = params.arr;
                     }
-                }
+                });
 
                 localStorage.setItem("reminders", JSON.stringify(parsed));
 
