@@ -20,20 +20,9 @@ import DialogTitle from "@mui/material/DialogTitle";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 
 // Custom Components
-import DaysInput from "./DaysInput.js";
 import NoRegisteredReminders from "./NoRegisteredReminders.js";
+import SingleDayInput from "./SingleDayInput.js";
 import TimeInput from "./TimeInput.js";
-
-const initOptions = [
-    {label: "Every day", disabled: false},
-    {label: "Sunday", disabled: false},
-    {label: "Monday", disabled: false},
-    {label: "Tuesday", disabled: false},
-    {label: "Wednesday", disabled: false},
-    {label: "Thursday", disabled: false},
-    {label: "Friday", disabled: false},
-    {label: "Saturday", disabled: false}
-];
 
 const validationSchema = Yup.object().shape({
     daysOfWeek: Yup.array()
@@ -331,7 +320,7 @@ export default function DisplayReminders() {
                             Days: <ChipList id={reminder.id} arr={reminder.days} objKey={"days"}/>
                             {/* Note: the onDelete creates the icon in the appropriate spot and there isn't an onAdd option */}
                             <Chip color={"primary"} onDelete={handleClickAddDay} deleteIcon={<AddIcon/>} sx={chipSx}
-                                  label={"Add day"}/>
+                                  label={"Add day(s)"}/>
                         </Typography>
                         <Typography sx={typographyChipSx} variant="h5">
                             Times: <ChipList id={reminder.id} arr={reminder.times} objKey={"times"}/>
@@ -367,10 +356,10 @@ export default function DisplayReminders() {
                         <form onSubmit={handleSubmitAddDay((data) => addDay(reminder.id, parsed, data))} noValidate>
                             <Box sx={boxSx}>
                                 <Typography sx={dialogTypographySx} variant="h5">
-                                    Add day
+                                    Add day(s)
                                 </Typography>
 
-                                <DaysInput initOptions={initOptions} control={controlAddDay} label={"Day"}/>
+                                <SingleDayInput control={controlAddDay} label={"Day"}/>
 
                                 <Button disabled={!formStateAddDay.isValid} size="large" sx={{...buttonSx, mb: 5}}
                                         type="submit"

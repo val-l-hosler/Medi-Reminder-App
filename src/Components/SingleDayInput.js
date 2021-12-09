@@ -5,7 +5,7 @@ import {Controller} from "react-hook-form";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 
-const initOptions = [
+const daysOfWeekSuggestions = [
     {label: "Every day", disabled: false},
     {label: "Sunday", disabled: false},
     {label: "Monday", disabled: false},
@@ -16,47 +16,13 @@ const initOptions = [
     {label: "Saturday", disabled: false}
 ];
 
-export default function DaysInput(params) {
+export default function SingleDayInput(params) {
     // Styles
     const autoCompleteSx = {
         width: "100%"
     };
 
-    const [daysOfWeekSuggestions, setOptions] = useState(initOptions);
-    const [selected, setSelected] = useState([]);
-
-    const onChangeDisabled = (e, valueArr) => {
-        setSelected(valueArr);
-
-        if (valueArr.length === 0) {
-            const resetOptions = [...daysOfWeekSuggestions].map((opt) => {
-                opt.disabled = false;
-                return opt;
-            });
-
-            setOptions(resetOptions);
-        } else {
-            const everyDaySelected = valueArr.find(
-                (item) => item.label === "Every day"
-            );
-
-            if (everyDaySelected) {
-                const updatedOptions = [...daysOfWeekSuggestions].map((opt) => {
-                    opt.disabled = opt.label !== "Every day";
-                    return opt;
-                });
-
-                setOptions(updatedOptions);
-            } else {
-                const updatedOptions = [...daysOfWeekSuggestions].map((opt) => {
-                    opt.disabled = opt.label === "Every day";
-                    return opt;
-                });
-
-                setOptions(updatedOptions);
-            }
-        }
-    };
+    const [dayValue, setDayValue] = useState(null);
 
     const label = params.label;
 
@@ -71,16 +37,15 @@ export default function DaysInput(params) {
                     autoHighlight
                     disableClearable
                     filterSelectedOptions
-                    multiple
                     getOptionDisabled={(option) => !!option.disabled}
                     id="days-autocomplete"
                     onChange={(event, value) => {
                         field.onChange(value);
-                        onChangeDisabled(event, value);
+                        setDayValue(value);
                     }}
                     options={daysOfWeekSuggestions}
                     sx={autoCompleteSx}
-                    value={selected}
+                    value={dayValue}
                     renderInput={(ac_params) => (
                         <TextField
                             required

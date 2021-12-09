@@ -18,17 +18,6 @@ import Typography from "@mui/material/Typography";
 // Custom Components
 import DaysInput from "./DaysInput.js";
 
-const initOptions = [
-    {label: "Every day", disabled: false},
-    {label: "Sunday", disabled: false},
-    {label: "Monday", disabled: false},
-    {label: "Tuesday", disabled: false},
-    {label: "Wednesday", disabled: false},
-    {label: "Thursday", disabled: false},
-    {label: "Friday", disabled: false},
-    {label: "Saturday", disabled: false}
-];
-
 const validationSchema = Yup.object().shape({
     daysOfWeek: Yup.array()
         .of(
@@ -142,7 +131,7 @@ export default function AddReminder2() {
 
             <form onSubmit={handleSubmit(onSubmit)} noValidate>
                 <Box sx={boxSx}>
-                    <DaysInput initOptions={initOptions} control={control} label={"Days of the week"}/>
+                    <DaysInput control={control} label={"Days of the week"}/>
 
                     <Box>
                         <Button href="/add-reminder"><ArrowBackIcon sx={iconButtonSx}/></Button>
