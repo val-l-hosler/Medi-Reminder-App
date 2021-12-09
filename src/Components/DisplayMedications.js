@@ -1,5 +1,5 @@
 import {useState, useCallback} from "react";
-import {Controller, useForm} from "react-hook-form";
+import {useForm} from "react-hook-form";
 import * as Yup from "yup";
 import {yupResolver} from "@hookform/resolvers/yup";
 
@@ -12,12 +12,11 @@ import CloseIcon from "@mui/icons-material/Close";
 import Container from "@mui/material/Container";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import Autocomplete from "@mui/material/Autocomplete";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
-import TextField from "@mui/material/TextField";
 
 // Custom Components
+import DoseInput from "./DoseInput.js";
 import NoRegisteredMedications from "./NoRegisteredMedications";
 
 const doseSuggestions = [
@@ -117,9 +116,6 @@ export default function DisplayMedications() {
             mode: "onChange",
             resolver: yupResolver(validationSchema)
         });
-
-        // I added these because without it, all the autofill elements were showing up as selected
-        const [doseValue, setDoseValue] = useState(null);
 
         // This handles the update dose dialog
         const [openUpdate, setOpenUpdate] = useState(false);
@@ -254,38 +250,7 @@ export default function DisplayMedications() {
                             <Box
                                 sx={boxSx}
                             >
-                                <Controller
-                                    name="dose"
-                                    control={control}
-                                    render={({field: {ref, ...field}, fieldState: {error}}) => (
-                                        <Autocomplete
-                                            {...field}
-                                            autoHighlight
-                                            disableClearable
-                                            isOptionEqualToValue={(option, value) => value.label === option.label}
-                                            id="dose-autocomplete"
-                                            onChange={(event, value) => {
-                                                field.onChange(value.label);
-                                                setDoseValue(value);
-                                            }}
-                                            options={doseSuggestions}
-                                            value={doseValue}
-                                            renderInput={(params) => (
-                                                <TextField
-                                                    required
-                                                    error={!!error}
-                                                    helperText={error?.message}
-                                                    id="dose"
-                                                    label="Dose"
-                                                    name="dose"
-                                                    type="numeric"
-                                                    inputRef={ref}
-                                                    {...params}
-                                                />
-                                            )}
-                                        />
-                                    )}
-                                />
+                                <DoseInput control={control} suggestions={doseSuggestions} variant={"outlined"}/>
 
                                 <Button disabled={!formState.isValid} size="large"
                                         sx={formButtonSx} type="submit"

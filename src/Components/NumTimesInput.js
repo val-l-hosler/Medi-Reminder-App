@@ -5,28 +5,25 @@ import {Controller} from "react-hook-form";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 
-const daysOfWeekSuggestions = [
-    {label: "Every day", disabled: false},
-    {label: "Sunday", disabled: false},
-    {label: "Monday", disabled: false},
-    {label: "Tuesday", disabled: false},
-    {label: "Wednesday", disabled: false},
-    {label: "Thursday", disabled: false},
-    {label: "Friday", disabled: false},
-    {label: "Saturday", disabled: false}
+const timesSuggestions = [
+    {label: "1"},
+    {label: "2"},
+    {label: "3"},
+    {label: "4"},
+    {label: "5"}
 ];
 
-export default function SingleDayInput(params) {
+export default function NumTimesInput(params) {
     // Styles
     const autoCompleteSx = {
         width: "100%"
     };
 
-    const [dayValue, setDayValue] = useState(null);
+    const [timesValue, setTimesValue] = useState(null);
 
     return (
         <Controller
-            name="daysOfWeek"
+            name="times"
             control={params.control}
             render={({field: {ref, ...field}, fieldState: {error}}) => (
                 <Autocomplete
@@ -34,26 +31,26 @@ export default function SingleDayInput(params) {
                     autoHighlight
                     disableClearable
                     isOptionEqualToValue={(option, value) => value.label === option.label}
-                    id="days-autocomplete"
+                    id="times-autocomplete"
                     onChange={(event, value) => {
                         field.onChange(value.label);
-                        setDayValue(value);
+                        setTimesValue(value);
                     }}
-                    options={daysOfWeekSuggestions}
+                    options={timesSuggestions}
+                    value={timesValue}
                     sx={autoCompleteSx}
-                    value={dayValue}
-                    renderInput={(ac_params) => (
+                    renderInput={(acParams) => (
                         <TextField
                             required
                             error={!!error}
                             helperText={error?.message}
-                            id="daysOfWeek"
-                            label="Day(s)"
-                            name="daysOfWeek"
+                            id="times"
+                            label="Number of Times"
+                            name="times"
                             type="search"
                             inputRef={ref}
                             variant={params.variant}
-                            {...ac_params}
+                            {...acParams}
                         />
                     )}
                 />

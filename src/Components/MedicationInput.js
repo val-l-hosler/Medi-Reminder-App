@@ -5,28 +5,17 @@ import {Controller} from "react-hook-form";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 
-const daysOfWeekSuggestions = [
-    {label: "Every day", disabled: false},
-    {label: "Sunday", disabled: false},
-    {label: "Monday", disabled: false},
-    {label: "Tuesday", disabled: false},
-    {label: "Wednesday", disabled: false},
-    {label: "Thursday", disabled: false},
-    {label: "Friday", disabled: false},
-    {label: "Saturday", disabled: false}
-];
-
-export default function SingleDayInput(params) {
+export default function MedicationInput(params) {
     // Styles
     const autoCompleteSx = {
         width: "100%"
     };
 
-    const [dayValue, setDayValue] = useState(null);
+    const [medValue, setMedValue] = useState(null);
 
     return (
         <Controller
-            name="daysOfWeek"
+            name="medication"
             control={params.control}
             render={({field: {ref, ...field}, fieldState: {error}}) => (
                 <Autocomplete
@@ -34,26 +23,26 @@ export default function SingleDayInput(params) {
                     autoHighlight
                     disableClearable
                     isOptionEqualToValue={(option, value) => value.label === option.label}
-                    id="days-autocomplete"
+                    id="medication-autocomplete"
                     onChange={(event, value) => {
                         field.onChange(value.label);
-                        setDayValue(value);
+                        setMedValue(value);
                     }}
-                    options={daysOfWeekSuggestions}
+                    options={params.suggestions}
+                    value={medValue}
                     sx={autoCompleteSx}
-                    value={dayValue}
-                    renderInput={(ac_params) => (
+                    renderInput={(acParams) => (
                         <TextField
                             required
                             error={!!error}
                             helperText={error?.message}
-                            id="daysOfWeek"
-                            label="Day(s)"
-                            name="daysOfWeek"
+                            id="medication"
+                            label="Medication"
+                            name="medication"
                             type="search"
-                            inputRef={ref}
                             variant={params.variant}
-                            {...ac_params}
+                            inputRef={ref}
+                            {...acParams}
                         />
                     )}
                 />

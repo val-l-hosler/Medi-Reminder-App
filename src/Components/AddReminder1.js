@@ -1,5 +1,5 @@
-import {useState} from "react";
-import {useForm, Controller} from "react-hook-form";
+import * as React from "react";
+import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 
@@ -12,10 +12,10 @@ import Container from "@mui/material/Container";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import Autocomplete from "@mui/material/Autocomplete";
-import TextField from "@mui/material/TextField";
 
 // Custom Components
+import DoseInput from "./DoseInput.js";
+import MedicationInput from "./MedicationInput.js";
 import NoRegisteredMedications from "./NoRegisteredMedications";
 
 const validationSchema = Yup.object().shape({
@@ -58,11 +58,6 @@ function setSuggestions() {
 }
 
 export default function AddReminder1() {
-    // Styles
-    const autoCompleteSx = {
-        width: "100%"
-    };
-
     const boxSx = {
         "& .MuiTextField-root": {mb: 5, width: "100%"},
         alignItems: "center",
@@ -143,10 +138,6 @@ export default function AddReminder1() {
             });
     };
 
-    // I added these because without it, all the autofill elements were showing up as selected
-    const [medValue, setMedValue] = useState(null);
-    const [doseValue, setDoseValue] = useState(null);
-
     // If there are any registered medications
     if (setSuggestions().length > 1) {
         return (
@@ -168,75 +159,9 @@ export default function AddReminder1() {
                     <Box
                         sx={boxSx}
                     >
-                        <Controller
-                            name="medication"
-                            control={control}
-                            render={({field: {ref, ...field}, fieldState: {error}}) => (
-                                <Autocomplete
-                                    {...field}
-                                    autoHighlight
-                                    disableClearable
-                                    disablePortal
-                                    isOptionEqualToValue={(option, value) => value.label === option.label}
-                                    id="medication-autocomplete"
-                                    onChange={(event, value) => {
-                                        field.onChange(value.label);
-                                        setMedValue(value);
-                                    }}
-                                    options={setSuggestions()[0]}
-                                    value={medValue}
-                                    sx={autoCompleteSx}
-                                    renderInput={(params) => (
-                                        <TextField
-                                            required
-                                            error={!!error}
-                                            helperText={error?.message}
-                                            id="medication"
-                                            label="Medication"
-                                            name="medication"
-                                            type="search"
-                                            inputRef={ref}
-                                            {...params}
-                                        />
-                                    )}
-                                />
-                            )}
-                        />
+                        <MedicationInput control={control} suggestions={setSuggestions()[0]} variant={"outlined"}/>
 
-                        <Controller
-                            name="dose"
-                            control={control}
-                            render={({field: {ref, ...field}, fieldState: {error}}) => (
-                                <Autocomplete
-                                    {...field}
-                                    autoHighlight
-                                    disableClearable
-                                    disablePortal
-                                    isOptionEqualToValue={(option, value) => value.label === option.label}
-                                    id="dose-autocomplete"
-                                    onChange={(event, value) => {
-                                        field.onChange(value.label);
-                                        setDoseValue(value);
-                                    }}
-                                    options={setSuggestions()[1]}
-                                    value={doseValue}
-                                    sx={autoCompleteSx}
-                                    renderInput={(params) => (
-                                        <TextField
-                                            required
-                                            error={!!error}
-                                            helperText={error?.message}
-                                            id="dose"
-                                            label="Dose"
-                                            name="dose"
-                                            type="numeric"
-                                            inputRef={ref}
-                                            {...params}
-                                        />
-                                    )}
-                                />
-                            )}
-                        />
+                        <DoseInput control={control} suggestions={setSuggestions()[1]} variant={"outlined"}/>
 
                         <Button disabled={!formState.isValid}
                                 type="submit"><ArrowForwardIcon sx={iconButtonSx}/></Button>

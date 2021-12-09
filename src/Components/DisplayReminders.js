@@ -353,7 +353,7 @@ export default function DisplayReminders() {
                                     Add day(s)
                                 </Typography>
 
-                                <SingleDayInput control={controlAddDay} label={"Day"}/>
+                                <SingleDayInput control={controlAddDay} variant={"outlined"}/>
 
                                 <Button disabled={!formStateAddDay.isValid} size="large" sx={{...buttonSx, mb: 5}}
                                         type="submit"

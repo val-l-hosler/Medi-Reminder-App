@@ -25,14 +25,6 @@ W
 'src/Components/NoRegisteredReminders.js,7\4\7435c38646a18ae8e74d365c16d3703fe0221534
 V
 &src/Components/ReminderConfirmation.js,c\6\c623d8ede056d208456db7aa67283027673cb209
-K
-src/Components/TimeInput.js,b\e\bef4133a614f8ff60ce6e03cc949dc04012a404d
-Q
-!src/Components/AddMedication_B.js,3\f\3f279ff6e1f423258e8bb8802a3c44d2e712399d
-N
-src/Components/AddReminder5.js,f\6\f64f9f40fd846e46cba6353bee3dfd4a89f1310d
-T
-$src/Components/DisplayMedications.js,d\5\d52f0900e11a3ba59030eb8d296d081c51ee4e66
 G
 src/Components/Login.js,5\c\5c95e99eef1ecd19e2b1d97e1a347109383c6351
 X

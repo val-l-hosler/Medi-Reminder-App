@@ -58,8 +58,6 @@ export default function DaysInput(params) {
         }
     };
 
-    const label = params.label;
-
     return (
         <Controller
             name="daysOfWeek"
@@ -79,19 +77,20 @@ export default function DaysInput(params) {
                         onChangeDisabled(event, value);
                     }}
                     options={daysOfWeekSuggestions}
-                    sx={autoCompleteSx}
                     value={selected}
-                    renderInput={(ac_params) => (
+                    sx={autoCompleteSx}
+                    renderInput={(acParams) => (
                         <TextField
                             required
                             error={!!error}
                             helperText={error?.message}
                             id="daysOfWeek"
-                            label={label}
+                            label="Day(s)"
                             name="daysOfWeek"
                             type="search"
+                            variant={params.variant}
                             inputRef={ref}
-                            {...ac_params}
+                            {...acParams}
                         />
                     )}
                 />

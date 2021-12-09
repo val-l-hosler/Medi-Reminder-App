@@ -33,12 +33,13 @@ export default function TimeInput(params) {
                         params.setValue(name, val, {shouldValidate: true, shouldDirty: true});
                         setTime(val);
                     }}
-                    renderInput={(params) =>
+                    renderInput={(tpParams) =>
                         <TextField
                             id={name}
                             name={name}
                             inputRef={ref}
-                            {...params}
+                            variant={params.variant}
+                            {...tpParams}
                         />
                     }
                 />

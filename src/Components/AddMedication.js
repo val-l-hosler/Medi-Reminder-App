@@ -1,5 +1,5 @@
-import {useState} from "react";
-import {useForm, Controller} from "react-hook-form";
+import * as React from "react";
+import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 
@@ -8,8 +8,10 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import Autocomplete from "@mui/material/Autocomplete";
-import TextField from "@mui/material/TextField";
+
+// Custom Components
+import DoseInput from "./DoseInput.js";
+import MedicationInput from "./MedicationInput.js";
 
 const doseSuggestions = [
     {label: "10"},
@@ -87,10 +89,6 @@ export default function AddMedication() {
         resolver: yupResolver(validationSchema)
     });
 
-    // I added these because without it, all the autofill elements were showing up as selected
-    const [medValue, setMedValue] = useState(null);
-    const [doseValue, setDoseValue] = useState(null);
-
     return (
         <Container sx={containerSx}>
             <form onSubmit={handleSubmit(onSubmit)} noValidate>
@@ -102,73 +100,9 @@ export default function AddMedication() {
                     sx={boxSx}
                 >
 
-                    <Controller
-                        name="medication"
-                        control={control}
-                        render={({field: {ref, ...field}, fieldState: {error}}) => (
-                            <Autocomplete
-                                {...field}
-                                autoHighlight
-                                disableClearable
-                                disablePortal
-                                isOptionEqualToValue={(option, value) => value.label === option.label}
-                                id="medication-autocomplete"
-                                onChange={(event, value) => {
-                                    field.onChange(value.label);
-                                    setMedValue(value);
-                                }}
-                                options={medicationSuggestions}
-                                value={medValue}
-                                renderInput={(params) => (
-                                    <TextField
-                                        required
-                                        error={!!error}
-                                        helperText={error?.message}
-                                        id="medication"
-                                        label="Medication"
-                                        name="medication"
-                                        type="search"
-                                        inputRef={ref}
-                                        {...params}
-                                    />
-                                )}
-                            />
-                        )}
-                    />
+                    <MedicationInput control={control} suggestions={medicationSuggestions} variant={"outlined"}/>
 
-                    <Controller
-                        name="dose"
-                        control={control}
-                        render={({field: {ref, ...field}, fieldState: {error}}) => (
-                            <Autocomplete
-                                {...field}
-                                autoHighlight
-                                disableClearable
-                                disablePortal
-                                isOptionEqualToValue={(option, value) => value.label === option.label}
-                                id="dose-autocomplete"
-                                onChange={(event, value) => {
-                                    field.onChange(value.label);
-                                    setDoseValue(value);
-                                }}
-                                options={doseSuggestions}
-                                value={doseValue}
-                                renderInput={(params) => (
-                                    <TextField
-                                        required
-                                        error={!!error}
-                                        helperText={error?.message}
-                                        id="dose"
-                                        label="Dose"
-                                        name="dose"
-                                        type="numeric"
-                                        inputRef={ref}
-                                        {...params}
-                                    />
-                                )}
-                            />
-                        )}
-                    />
+                    <DoseInput control={control} suggestions={doseSuggestions} variant={"outlined"}/>
 
                     <Button disabled={!formState.isValid} size="large" sx={buttonSx} type="submit"
                             variant="contained">Submit</Button>

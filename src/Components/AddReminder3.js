@@ -1,5 +1,5 @@
-import {useState} from "react";
-import {useForm, Controller} from "react-hook-form";
+import * as React from "react";
+import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 
@@ -14,16 +14,9 @@ import Link from "@mui/material/Link";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import Autocomplete from "@mui/material/Autocomplete";
-import TextField from "@mui/material/TextField";
 
-const timesSuggestions = [
-    {label: "1"},
-    {label: "2"},
-    {label: "3"},
-    {label: "4"},
-    {label: "5"}
-];
+// Custom Components
+import NumTimesInput from "./NumTimesInput.js";
 
 const validationSchema = Yup.object().shape({
     times: Yup.string()
@@ -32,10 +25,6 @@ const validationSchema = Yup.object().shape({
 
 export default function AddReminder3() {
     // Styles
-    const autoCompleteSx = {
-        width: "100%"
-    };
-
     const boxSx = {
         "& .MuiTextField-root": {mb: 5, width: "100%"},
         alignItems: "center",
@@ -116,9 +105,6 @@ export default function AddReminder3() {
 
     };
 
-    // I added these because without it, all the autofill elements were showing up as selected
-    const [timesValue, setTimesValue] = useState(null);
-
     return (
         <Container sx={containerSx}>
             <Stack spacing={2} sx={stackSx}>
@@ -136,40 +122,7 @@ export default function AddReminder3() {
                         How many times a day do you take your medicine?
                     </Typography>
 
-                    <Controller
-                        name="times"
-                        control={control}
-                        render={({field: {ref, ...field}, fieldState: {error}}) => (
-                            <Autocomplete
-                                {...field}
-                                autoHighlight
-                                disableClearable
-                                disablePortal
-                                isOptionEqualToValue={(option, value) => value.label === option.label}
-                                id="times-autocomplete"
-                                onChange={(event, value) => {
-                                    field.onChange(value.label);
-                                    setTimesValue(value);
-                                }}
-                                options={timesSuggestions}
-                                value={timesValue}
-                                sx={autoCompleteSx}
-                                renderInput={(params) => (
-                                    <TextField
-                                        required
-                                        error={!!error}
-                                        helperText={error?.message}
-                                        id="times"
-                                        label="Number of Times"
-                                        name="times"
-                                        type="search"
-                                        inputRef={ref}
-                                        {...params}
-                                    />
-                                )}
-                            />
-                        )}
-                    />
+                    <NumTimesInput control={control} variant={"outlined"}/>
 
                     <Box>
                         <Button href="/add-reminder/days"><ArrowBackIcon sx={iconButtonSx}/></Button>

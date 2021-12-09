@@ -131,7 +131,7 @@ export default function AddReminder2() {
 
             <form onSubmit={handleSubmit(onSubmit)} noValidate>
                 <Box sx={boxSx}>
-                    <DaysInput control={control} label={"Days of the week"}/>
+                    <DaysInput control={control} variant={"outlined"}/>
 
                     <Box>
                         <Button href="/add-reminder"><ArrowBackIcon sx={iconButtonSx}/></Button>
