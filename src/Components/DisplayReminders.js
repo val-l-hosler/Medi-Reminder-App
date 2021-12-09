@@ -25,7 +25,7 @@ import SingleDayInput from "./SingleDayInput.js";
 import TimeInput from "./TimeInput.js";
 
 const validationSchema = Yup.object().shape({
-    daysOfWeek: Yup.string()
+    days: Yup.string()
         .required("Days of the week are required")
 });
 
@@ -115,7 +115,7 @@ export default function DisplayReminders() {
         parsed = parsed.filter((index) => index.submitted === true);
     }
 
-    // This forces the component to re-render after a medication has been deleted
+    // This forces the component to re-render
     const [, updateState] = useState();
     const forceUpdate = useCallback(() => updateState({}), []);
 
@@ -127,19 +127,24 @@ export default function DisplayReminders() {
 
         for (const index of params.arr) {
             if (index === "Every day") {
+                console.log("in here")
                 everyDayFlag = true;
                 everyDayObj = index;
+                break;
             }
         }
 
         let unique;
 
         if (!everyDayFlag) {
+            console.log("hi")
             unique = [...new Set(params.arr)];
         } else {
+            console.log("wow")
             unique = [everyDayObj];
 
             if (params.arr.length > 1) {
+                console.log("in hereee")
                 // This adds "Every day" to the beginning of the arr
                 params.arr.unshift("Every day");
                 // This removes all the other days
@@ -154,7 +159,7 @@ export default function DisplayReminders() {
 
                 localStorage.setItem("reminders", JSON.stringify(parsed));
 
-                // This forces the medication list to re-render
+                // This forces the reminder list to re-render
                 forceUpdate();
             }
         }
@@ -173,11 +178,11 @@ export default function DisplayReminders() {
 
                 localStorage.setItem("reminders", JSON.stringify(parsed));
 
-                // This forces the medication list to re-render
+                // This forces the reminder list to re-render
                 forceUpdate();
             };
 
-            return (<Chip onDelete={handleDelete} sx={chipSx} key={"Chip_" + index} label={index}/>);
+            return (<Chip onDelete={handleDelete} sx={chipSx} key={"Chip_" + i} label={index}/>);
         }));
     };
 
@@ -204,20 +209,6 @@ export default function DisplayReminders() {
             setOpenAddDay(false);
         };
 
-        function addDay(reminderId, parsedReminders, data) {
-            const thisReminder = getThisReminder(reminderId, parsedReminders)[0];
-            const thisReminderIndex = getThisReminder(reminderId, parsedReminders)[1];
-            thisReminder.days = [...thisReminder.days, data.daysOfWeek];
-            parsed[thisReminderIndex] = thisReminder;
-            localStorage.setItem("reminders", JSON.stringify(parsed));
-
-            // This forces the dialog to close
-            setOpenAddDay(false);
-
-            // This forces the reminder list to re-render
-            forceUpdate();
-        }
-
         // This needs to be inside the component or else an unmounted component error displays in the console
         // This controls the add day form
         const {
@@ -228,6 +219,21 @@ export default function DisplayReminders() {
             mode: "onChange",
             resolver: yupResolver(validationSchema)
         });
+
+        // Function that is triggered when the add day(s) form is submitted
+        function addDay(reminderId, parsedReminders, data) {
+            const thisReminder = getThisReminder(reminderId, parsedReminders)[0];
+            const thisReminderIndex = getThisReminder(reminderId, parsedReminders)[1];
+            thisReminder.days = [...thisReminder.days, data.days];
+            parsed[thisReminderIndex] = thisReminder;
+            localStorage.setItem("reminders", JSON.stringify(parsed));
+
+            // This forces the dialog to close
+            setOpenAddDay(false);
+
+            // This forces the reminder list to re-render
+            forceUpdate();
+        }
 
         // This handles the add time dialog
         const [openAddTime, setOpenAddTime] = useState(false);
@@ -246,10 +252,7 @@ export default function DisplayReminders() {
             setValue: setValueAddTime,
             register: registerAddTime,
             getValues: getValuesAddTime
-        } = useForm({
-            mode: "onChange",
-            resolver: yupResolver(validationSchema)
-        });
+        } = useForm();
 
         // Function that is triggered when the add time form is submitted
         function addTime(reminderId, parsedReminders, data) {
@@ -278,7 +281,7 @@ export default function DisplayReminders() {
                 time = finalTime;
             });
 
-            thisReminder.times = [...thisReminder.times, time];
+            thisReminder.time = [...thisReminder.time, time];
             parsed[thisReminderIndex] = thisReminder;
             localStorage.setItem("reminders", JSON.stringify(parsed));
 
@@ -336,7 +339,7 @@ export default function DisplayReminders() {
                                   label={"Add day(s)"}/>
                         </Typography>
                         <Typography sx={typographyChipSx} variant="h5">
-                            Times: <ChipList id={reminder.id} arr={reminder.times} objKey={"times"}/>
+                            Times: <ChipList id={reminder.id} arr={reminder.time} objKey={"times"}/>
                             {/* Note: the onDelete creates the icon in the appropriate spot and there isn't an onAdd option */}
                             <Chip color={"primary"} onDelete={handleClickAddTime} deleteIcon={<AddIcon/>} sx={chipSx}
                                   label={"Add time"}/>
@@ -401,7 +404,7 @@ export default function DisplayReminders() {
                     </DialogTitle>
 
                     <Box sx={dialogBoxSx}>
-                        <form onSubmit={handleSubmitAddTime((data) => addTime(reminder.id, parsed, data))}>
+                        <form onSubmit={handleSubmitAddTime((data) => addTime(reminder.id, parsed, data))} noValidate>
                             <Box sx={boxSx}>
                                 <Typography sx={dialogTypographySx} variant="h5">
                                     Add time
@@ -409,9 +412,8 @@ export default function DisplayReminders() {
 
                                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                                     <TimeInput setValue={setValueAddTime} getValues={getValuesAddTime}
-                                               register={registerAddTime}
-                                               control={controlAddTime}
-                                               counter={""} key={"TimeInputs" + reminder.id}/>
+                                               register={registerAddTime} control={controlAddTime}
+                                               counter={""} key={"AddTime_" + reminder.id} variant={"outlined"}/>
                                 </LocalizationProvider>
                                 <Button size="large" sx={{...buttonSx, mb: 5}} type="submit"
                                         variant="contained">Submit</Button>
@@ -447,8 +449,8 @@ export default function DisplayReminders() {
     let reminders;
 
     if (parsed !== null && parsed.length > 0) {
-        reminders = parsed.map((reminder, index) => {
-            return (<Reminder reminder={reminder} key={"reminder" + index}/>)
+        reminders = parsed.map((reminder) => {
+            return (<Reminder reminder={reminder} key={"Reminder_" + reminder.id}/>)
         });
     } else {
         reminders = <NoRegisteredReminders/>;

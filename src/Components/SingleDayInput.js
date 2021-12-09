@@ -26,7 +26,7 @@ export default function SingleDayInput(params) {
 
     return (
         <Controller
-            name="daysOfWeek"
+            name="days"
             control={params.control}
             render={({field: {ref, ...field}, fieldState: {error}}) => (
                 <Autocomplete
@@ -42,18 +42,18 @@ export default function SingleDayInput(params) {
                     options={daysOfWeekSuggestions}
                     value={dayValue}
                     sx={autoCompleteSx}
-                    renderInput={(acParams) => (
+                    renderInput={(tfParams) => (
                         <TextField
                             required
                             error={!!error}
                             helperText={error?.message}
-                            id="daysOfWeek"
+                            id="days"
                             label="Day(s)"
-                            name="daysOfWeek"
+                            name="days"
                             type="search"
-                            inputRef={ref}
                             variant={params.variant}
-                            {...acParams}
+                            inputRef={ref}
+                            {...tfParams}
                         />
                     )}
                 />

@@ -31,7 +31,7 @@ export default function MedicationInput(params) {
                     options={params.suggestions}
                     value={medValue}
                     sx={autoCompleteSx}
-                    renderInput={(acParams) => (
+                    renderInput={(tfParams) => (
                         <TextField
                             required
                             error={!!error}
@@ -42,7 +42,7 @@ export default function MedicationInput(params) {
                             type="search"
                             variant={params.variant}
                             inputRef={ref}
-                            {...acParams}
+                            {...tfParams}
                         />
                     )}
                 />

@@ -31,7 +31,7 @@ export default function DoseInput(params) {
                     options={params.suggestions}
                     value={doseValue}
                     sx={autoCompleteSx}
-                    renderInput={(acParams) => (
+                    renderInput={(tfParams) => (
                         <TextField
                             required
                             error={!!error}
@@ -42,7 +42,7 @@ export default function DoseInput(params) {
                             type="numeric"
                             variant={params.variant}
                             inputRef={ref}
-                            {...acParams}
+                            {...tfParams}
                         />
                     )}
                 />

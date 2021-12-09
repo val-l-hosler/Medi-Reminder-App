@@ -107,7 +107,7 @@ export default function AddReminder1() {
                 dose: data.dose,
                 days: [],
                 timesPerDay: 0,
-                times: [],
+                time: [],
                 submitted: false
             }]));
         } else {
@@ -124,7 +124,7 @@ export default function AddReminder1() {
                     dose: data.dose,
                     days: [],
                     timesPerDay: 0,
-                    times: [],
+                    time: [],
                     submitted: false
                 });
 

@@ -93,8 +93,8 @@ export default function AddReminder5() {
     const ChipList = (params) => {
         params.arr.sort();
 
-        return (params.arr.map((index) => {
-            return (<Chip sx={chipSx} key={"Chip_" + index} label={index}/>);
+        return (params.arr.map((index, i) => {
+            return (<Chip sx={chipSx} key={"Chip_" + i} label={index}/>);
         }));
     };
 
@@ -119,7 +119,7 @@ export default function AddReminder5() {
                     Days: <ChipList arr={medication.days}/>
                 </Typography>
                 <Typography variant="h5">
-                    Times: <ChipList arr={medication.times}/>
+                    Times: <ChipList arr={medication.time}/>
                 </Typography>
 
                 <Divider sx={{mb: 3.75, mt: 2.75}}/>

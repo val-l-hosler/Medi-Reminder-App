@@ -89,7 +89,7 @@ export default function AddReminder2() {
                 dose: "",
                 days: [],
                 timesPerDay: 0,
-                times: [],
+                time: [],
                 submitted: false
             }]));
         }
@@ -115,7 +115,7 @@ export default function AddReminder2() {
     };
 
     return (
-        <Container sx={containerSx/**/}>
+        <Container sx={containerSx}>
             <Stack spacing={2} sx={stackSx}>
                 <Breadcrumbs
                     separator={<NavigateNextIcon fontSize="small"/>}

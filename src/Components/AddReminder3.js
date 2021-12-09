@@ -20,7 +20,7 @@ import NumTimesInput from "./NumTimesInput.js";
 
 const validationSchema = Yup.object().shape({
     times: Yup.string()
-        .required("Times are required")
+        .required("Number of times are required")
 });
 
 export default function AddReminder3() {
@@ -70,7 +70,11 @@ export default function AddReminder3() {
         </Typography>
     ];
 
-    const {handleSubmit, control, formState} = useForm({
+    const {
+        handleSubmit,
+        control,
+        formState
+    } = useForm({
         mode: "onChange",
         resolver: yupResolver(validationSchema)
     });
@@ -86,7 +90,7 @@ export default function AddReminder3() {
                 dose: "",
                 days: [],
                 timesPerDay: 0,
-                times: [],
+                time: [],
                 submitted: false
             }]));
         }

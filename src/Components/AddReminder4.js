@@ -77,7 +77,7 @@ export default function AddReminder4() {
 
     for (let i = 0; i < getNumber(); i++) {
         allTimes.push(<TimeInput setValue={setValue} getValues={getValues} register={register} control={control}
-                                 counter={i + 1} key={"TimeInput_" + i} variant={"outlined"}/>);
+                                 counter={i + 1} key={"TimeInputs_" + i} variant={"outlined"}/>);
     }
 
     const onSubmit = (data) => {
@@ -88,7 +88,7 @@ export default function AddReminder4() {
                 dose: "",
                 days: [],
                 timesPerDay: 0,
-                times: [],
+                time: [],
                 submitted: false
             }]));
         }
@@ -119,8 +119,7 @@ export default function AddReminder4() {
             times.push(finalTime);
         });
 
-        mostRecent.times = times;
-
+        mostRecent.time = times;
         parsed[parsed.length - 1] = mostRecent;
         localStorage.setItem("reminders", JSON.stringify(parsed));
 
@@ -141,7 +140,7 @@ export default function AddReminder4() {
                 </Breadcrumbs>
             </Stack>
 
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(onSubmit)} noValidate>
                 <Box sx={boxSx}>
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                         {allTimes}

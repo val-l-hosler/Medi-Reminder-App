@@ -29,17 +29,17 @@ export default function TimeInput(params) {
                     keepMounted={true}
                     label={name}
                     value={time}
-                    onChange={(val) => {
-                        params.setValue(name, val, {shouldValidate: true, shouldDirty: true});
-                        setTime(val);
+                    onChange={(time) => {
+                        params.setValue(name, time, {shouldValidate: true, shouldDirty: true});
+                        setTime(time);
                     }}
-                    renderInput={(tpParams) =>
+                    renderInput={(tfParams) =>
                         <TextField
                             id={name}
                             name={name}
-                            inputRef={ref}
                             variant={params.variant}
-                            {...tpParams}
+                            inputRef={ref}
+                            {...tfParams}
                         />
                     }
                 />

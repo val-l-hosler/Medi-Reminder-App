@@ -39,7 +39,7 @@ export default function NumTimesInput(params) {
                     options={timesSuggestions}
                     value={timesValue}
                     sx={autoCompleteSx}
-                    renderInput={(acParams) => (
+                    renderInput={(tfParams) => (
                         <TextField
                             required
                             error={!!error}
@@ -48,9 +48,9 @@ export default function NumTimesInput(params) {
                             label="Number of Times"
                             name="times"
                             type="search"
-                            inputRef={ref}
                             variant={params.variant}
-                            {...acParams}
+                            inputRef={ref}
+                            {...tfParams}
                         />
                     )}
                 />
