@@ -26,7 +26,7 @@ import TimeInput from "./TimeInput.js";
 
 const validationSchema = Yup.object().shape({
     daysOfWeek: Yup.string()
-        .min(1, "Days of the week are required")
+        .required("Days of the week are required")
 });
 
 export default function DisplayReminders() {
@@ -121,6 +121,7 @@ export default function DisplayReminders() {
 
     const ChipList = (params) => {
         params.arr.sort();
+
         let everyDayFlag = false;
         let everyDayObj;
 
@@ -137,7 +138,25 @@ export default function DisplayReminders() {
             unique = [...new Set(params.arr)];
         } else {
             unique = [everyDayObj];
-            params.arr = unique;
+
+            if (params.arr.length > 1) {
+                // This adds "Every day" to the beginning of the arr
+                params.arr.unshift("Every day");
+                // This removes all the other days
+                params.arr.splice(1);
+
+                for (let i = 0; i < parsed.length; i++) {
+                    if (parsed[i].id === params.id) {
+                        // This resets the appropriate object's key/value pair with the updated list
+                        parsed[i][params.objKey] = params.arr;
+                    }
+                }
+
+                localStorage.setItem("reminders", JSON.stringify(parsed));
+
+                // This forces the medication list to re-render
+                forceUpdate();
+            }
         }
 
         return (unique.map((index, i) => {
@@ -188,7 +207,7 @@ export default function DisplayReminders() {
         function addDay(reminderId, parsedReminders, data) {
             const thisReminder = getThisReminder(reminderId, parsedReminders)[0];
             const thisReminderIndex = getThisReminder(reminderId, parsedReminders)[1];
-            thisReminder.days = [...thisReminder.days, data.daysOfWeek[0].label];
+            thisReminder.days = [...thisReminder.days, data.daysOfWeek];
             parsed[thisReminderIndex] = thisReminder;
             localStorage.setItem("reminders", JSON.stringify(parsed));
 

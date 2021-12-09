@@ -22,7 +22,7 @@ const validationSchema = Yup.object().shape({
     medication: Yup.string()
         .required("Medication is required"),
     dose: Yup.string()
-        .required("Dose is required"),
+        .required("Dose is required")
 });
 
 function setSuggestions() {

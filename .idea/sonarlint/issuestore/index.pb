@@ -17,16 +17,12 @@ G
 src/App.css,a\a\aa7165aefcf8ee3d73539e99ab007daf1aa18d8d
 A
 public/index.html,f\4\f43ecdf8d666ee908aacce037b4cd72159e4741b
-E
-src/Components/Nav.js,6\a\6aa63523b1eaff6438b9b87e91abdf8ff57bbb05
 Y
 )src/Components/NoRegisteredMedications.js,c\f\cfb7a9732b89a735fbbbeafb6e5760634287ac99
 W
 'src/Components/NoRegisteredReminders.js,7\4\7435c38646a18ae8e74d365c16d3703fe0221534
 V
 &src/Components/ReminderConfirmation.js,c\6\c623d8ede056d208456db7aa67283027673cb209
-G
-src/Components/Login.js,5\c\5c95e99eef1ecd19e2b1d97e1a347109383c6351
 X
 (src/Components/MedicationConfirmation.js,2\f\2fb66e3899185ed0f61f0dbbbb1aaa24362d47b0
 L

@@ -6,14 +6,14 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 
 const daysOfWeekSuggestions = [
-    {label: "Every day", disabled: false},
-    {label: "Sunday", disabled: false},
-    {label: "Monday", disabled: false},
-    {label: "Tuesday", disabled: false},
-    {label: "Wednesday", disabled: false},
-    {label: "Thursday", disabled: false},
-    {label: "Friday", disabled: false},
-    {label: "Saturday", disabled: false}
+    {label: "Every day"},
+    {label: "Sunday"},
+    {label: "Monday"},
+    {label: "Tuesday"},
+    {label: "Wednesday"},
+    {label: "Thursday"},
+    {label: "Friday"},
+    {label: "Saturday"}
 ];
 
 export default function SingleDayInput(params) {
@@ -40,9 +40,9 @@ export default function SingleDayInput(params) {
                         setDayValue(value);
                     }}
                     options={daysOfWeekSuggestions}
-                    sx={autoCompleteSx}
                     value={dayValue}
-                    renderInput={(ac_params) => (
+                    sx={autoCompleteSx}
+                    renderInput={(acParams) => (
                         <TextField
                             required
                             error={!!error}
@@ -53,7 +53,7 @@ export default function SingleDayInput(params) {
                             type="search"
                             inputRef={ref}
                             variant={params.variant}
-                            {...ac_params}
+                            {...acParams}
                         />
                     )}
                 />

@@ -70,14 +70,14 @@ export default function Nav() {
                                 <ListItemButton component="a" href="/add-medication" sx={listItemButtonSx}>
                                     <ListItemText disableTypography
                                                   primary={<Typography sx={listItemTextSx}>Add
-                                                      Medication</Typography>}/>
+                                                      medication</Typography>}/>
                                 </ListItemButton>
                             </ListItem>
                             <ListItem disablePadding>
                                 <ListItemButton component="a" href="/medications" sx={listItemButtonSx}>
                                     <ListItemText disableTypography
                                                   primary={<Typography sx={listItemTextSx}>Manage
-                                                      Medication(s)</Typography>}/>
+                                                      medication(s)</Typography>}/>
                                 </ListItemButton>
                             </ListItem>
                         </AccordionDetails>
@@ -95,14 +95,14 @@ export default function Nav() {
                                 <ListItemButton component="a" href="/add-reminder" sx={listItemButtonSx}>
                                     <ListItemText disableTypography
                                                   primary={<Typography sx={listItemTextSx}>Add
-                                                      Reminder</Typography>}/>
+                                                      reminder</Typography>}/>
                                 </ListItemButton>
                             </ListItem>
                             <ListItem disablePadding>
                                 <ListItemButton component="a" href="/reminders" sx={listItemButtonSx}>
                                     <ListItemText disableTypography
                                                   primary={<Typography sx={listItemTextSx}>Manage
-                                                      Reminder(s)</Typography>}/>
+                                                      reminder(s)</Typography>}/>
                                 </ListItemButton>
                             </ListItem>
                         </AccordionDetails>
