@@ -154,6 +154,7 @@ export default function DisplayReminders() {
             unique = [...new Set(params.arr)];
         } else {
             unique = [everyDayObj];
+            params.arr = unique;
         }
 
         return (unique.map((index, i) => {
