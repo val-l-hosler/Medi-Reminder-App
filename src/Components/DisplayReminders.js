@@ -138,7 +138,23 @@ export default function DisplayReminders() {
 
     const ChipList = (params) => {
         params.arr.sort();
-        const unique = [...new Set(params.arr)];
+        let everyDayFlag = false;
+        let everyDayObj;
+
+        for (const index of params.arr) {
+            if (index === "Every day") {
+                everyDayFlag = true;
+                everyDayObj = index;
+            }
+        }
+
+        let unique;
+
+        if (!everyDayFlag) {
+            unique = [...new Set(params.arr)];
+        } else {
+            unique = [everyDayObj];
+        }
 
         return (unique.map((index, i) => {
             const handleDelete = () => {
