@@ -25,13 +25,12 @@ export default function NoRegisteredMedications() {
         <Card sx={cardSx}>
             <CardContent>
                 <Typography variant="h5">
-                    No medications are registered.
+                    No medications are added.
                 </Typography>
             </CardContent>
             <Box>
                 <Button href="/add-medication" size="large" sx={buttonSx}
-                        variant="contained">Register
-                    med</Button>
+                        variant="contained">Add med</Button>
             </Box>
         </Card>
     );

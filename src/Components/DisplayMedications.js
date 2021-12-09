@@ -134,9 +134,9 @@ export default function DisplayMedications() {
         function updateDose(medicationId, parsedMedications, data) {
             let med;
 
-            for (let i = 0; i < parsedMedications.length; i++) {
-                if (parsedMedications[i].id === medicationId) {
-                    med = parsedMedications[i];
+            for (const index of parsedMedications) {
+                if (index.id === medicationId) {
+                    med = index;
                 }
             }
 
@@ -302,8 +302,8 @@ export default function DisplayMedications() {
 
     // I also set this condition (localStorage.getItem("medications").length > 2) because if the array is empty, the length === 2
     if (localStorage.getItem("medications") !== null && localStorage.getItem("medications").length > 2) {
-        medications = parsed.map((medication, index) => {
-            return (<Medication medication={medication} key={"medication" + index}/>)
+        medications = parsed.map((medication) => {
+            return (<Medication medication={medication} key={"Medication_" + medication.id}/>)
         });
     } else {
         medications = <NoRegisteredMedications/>;

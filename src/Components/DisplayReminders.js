@@ -145,11 +145,8 @@ export default function DisplayReminders() {
                 // This removes the appropriate index from the array that is passed into the params
                 params.arr.splice(i, 1);
 
-                const reminderList = localStorage.getItem("reminders");
-                const parsed = JSON.parse(reminderList);
-
-                for (let i = 0; i < parsed.length; i++) {
-                    if (parsed[i].id === params.id) {
+                for (const ind of parsed) {
+                    if (ind.id === params.id) {
                         // This resets the appropriate object's key/value pair with the updated list
                         parsed[i][params.objKey] = params.arr;
                     }
@@ -161,7 +158,7 @@ export default function DisplayReminders() {
                 forceUpdate();
             };
 
-            return (<Chip onDelete={handleDelete} sx={chipSx} key={"Chip" + i} label={index}/>);
+            return (<Chip onDelete={handleDelete} sx={chipSx} key={"Chip_" + index} label={index}/>);
         }));
     };
 
@@ -204,7 +201,11 @@ export default function DisplayReminders() {
 
         // This needs to be inside the component or else an unmounted component error displays in the console
         // This controls the add day form
-        const {control: controlAddDay, handleSubmit: handleSubmitAddDay, formState: formStateAddDay} = useForm({
+        const {
+            control: controlAddDay,
+            handleSubmit: handleSubmitAddDay,
+            formState: formStateAddDay
+        } = useForm({
             mode: "onChange",
             resolver: yupResolver(validationSchema)
         });

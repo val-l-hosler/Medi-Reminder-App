@@ -25,13 +25,12 @@ export default function NoRegisteredReminders() {
         <Card sx={cardSx}>
             <CardContent>
                 <Typography variant="h5">
-                    No reminders are registered.
+                    No reminders are added.
                 </Typography>
             </CardContent>
             <Box>
                 <Button href="/add-reminder" size="large" sx={buttonSx}
-                        variant="contained">Register
-                    reminder</Button>
+                        variant="contained">Add reminder</Button>
             </Box>
         </Card>
     );

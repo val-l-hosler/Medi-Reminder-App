@@ -29,9 +29,9 @@ export default function TimeInput(params) {
                     keepMounted={true}
                     label={name}
                     value={time}
-                    onChange={(time) => {
-                        params.setValue(name, time, {shouldValidate: true, shouldDirty: true});
-                        setTime(time);
+                    onChange={(val) => {
+                        params.setValue(name, val, {shouldValidate: true, shouldDirty: true});
+                        setTime(val);
                     }}
                     renderInput={(params) =>
                         <TextField

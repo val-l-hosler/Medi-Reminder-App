@@ -15,3 +15,5 @@ G
 src/index.css,c\5\c5d38a62d1faae90a2acaa34b79a7ef365c917e4
 ;
 src/App.css,a\a\aa7165aefcf8ee3d73539e99ab007daf1aa18d8d
+A
+public/index.html,f\4\f43ecdf8d666ee908aacce037b4cd72159e4741b

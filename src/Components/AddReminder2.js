@@ -111,8 +111,8 @@ export default function AddReminder2() {
         const daysArr = [];
 
         // The data for the days is stored in an object that contains a key, daysOfWeek. This key's value is an array of objects in the same format as initOptions
-        for (let i = 0; i < data.daysOfWeek.length; i++) {
-            daysArr.push(data.daysOfWeek[i].label);
+        for (const index of data.daysOfWeek) {
+            daysArr.push(index.label);
         }
 
         mostRecent.days = daysArr;

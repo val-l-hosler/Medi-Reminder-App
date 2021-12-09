@@ -70,7 +70,7 @@ export default function DaysInput(params) {
                     options={daysOfWeekSuggestions}
                     sx={autoCompleteSx}
                     value={selected}
-                    renderInput={(params) => (
+                    renderInput={(ac_params) => (
                         <TextField
                             required
                             error={!!error}
@@ -80,7 +80,7 @@ export default function DaysInput(params) {
                             name="daysOfWeek"
                             type="search"
                             inputRef={ref}
-                            {...params}
+                            {...ac_params}
                         />
                     )}
                 />
