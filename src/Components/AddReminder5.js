@@ -92,8 +92,9 @@ export default function AddReminder5() {
 
     const ChipList = (params) => {
         params.arr.sort();
+        const unique = [...new Set(params.arr)];
 
-        return (params.arr.map((index, i) => {
+        return (unique.map((index, i) => {
             return (<Chip sx={chipSx} key={"Chip_" + i} label={index}/>);
         }));
     };

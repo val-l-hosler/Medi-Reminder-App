@@ -127,7 +127,6 @@ export default function DisplayReminders() {
 
         for (const index of params.arr) {
             if (index === "Every day") {
-                console.log("in here")
                 everyDayFlag = true;
                 everyDayObj = index;
                 break;
@@ -137,14 +136,11 @@ export default function DisplayReminders() {
         let unique;
 
         if (!everyDayFlag) {
-            console.log("hi")
             unique = [...new Set(params.arr)];
         } else {
-            console.log("wow")
             unique = [everyDayObj];
 
             if (params.arr.length > 1) {
-                console.log("in hereee")
                 // This adds "Every day" to the beginning of the arr
                 params.arr.unshift("Every day");
                 // This removes all the other days
