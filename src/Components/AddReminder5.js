@@ -15,17 +15,25 @@ import Typography from "@mui/material/Typography";
 
 export default function AddReminder5() {
     // Styles
-    const buttonBoxSx = {
-        alignItems: "center",
-        display: "flex"
-    };
-
     const buttonSx = {
         fontSize: "17px",
         height: "5.75ch",
         ml: 2.5,
         mr: 2.5,
         width: "auto"
+    };
+
+    const centeredSx = {
+        alignItems: "center",
+        display: "flex",
+        flexDirection: "column",
+        width: "100%"
+    };
+
+    const confirmationMessageBoxSx = {
+        pl: 5,
+        pr: 5,
+        width: "calc(100vw - 80px)"
     };
 
     const containerSx = {
@@ -152,14 +160,16 @@ export default function AddReminder5() {
                     {breadcrumbs}
                 </Breadcrumbs>
             </Stack>
-            <Box>
-                <ConfirmationMessage/>
+            <Box sx={centeredSx}>
+                <Box sx={confirmationMessageBoxSx}>
+                    <ConfirmationMessage/>
+                </Box>
 
-                <Box sx={buttonBoxSx}>
+                <Box>
                     <Button href="/add-reminder/days/nums/times"><ArrowBackIcon sx={iconButtonSx}/></Button>
 
                     <Button onClick={onSubmit} size="large" sx={buttonSx} type="submit"
-                            variant="contained">Save Reminder</Button>
+                            variant="contained">Submit</Button>
                 </Box>
             </Box>
         </Container>
