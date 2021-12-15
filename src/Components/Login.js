@@ -40,15 +40,13 @@ export default function Login() {
     };
 
     const containerSx = {
-        m: 0,
-        p: 0,
+        pb: 5,
+        pt: 5,
         width: "100%"
     };
 
     const cardSx = {
-        ml: 5,
-        mt: 5,
-        mr: 5,
+        m: 5,
         p: 5
     };
 

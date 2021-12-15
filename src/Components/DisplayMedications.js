@@ -40,8 +40,8 @@ export default function DisplayMedications() {
     // Styles
     const boxSx = {
         "& .MuiTextField-root": {mb: 5, width: "100%"},
-        ml: "50px",
-        mr: "50px"
+        ml: 5,
+        mr: 5
     };
 
     const buttonSx = {
@@ -55,13 +55,10 @@ export default function DisplayMedications() {
         bgcolor: "#eeeeee",
         boxShadow: 3,
         mb: 5,
-        mt: 5,
-        pb: 0,
-        pt: 0
+        mt: 5
     };
 
     const containerSx = {
-        m: 0,
         pl: 5,
         pr: 5,
         width: "100%"
@@ -72,7 +69,6 @@ export default function DisplayMedications() {
     };
 
     const dialogTitleSx = {
-        m: 0,
         p: 3
     };
 

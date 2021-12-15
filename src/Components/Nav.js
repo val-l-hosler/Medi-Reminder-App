@@ -24,8 +24,8 @@ export default function Nav() {
     };
 
     const containerSx = {
-        m: 0,
-        p: 0,
+        mb: 5,
+        mt: 5,
         width: "100%"
     }
 
@@ -35,7 +35,8 @@ export default function Nav() {
     };
 
     const listSx = {
-        padding: 5
+        pl: 5,
+        pr: 5
     };
 
     const listItemButtonSx = {

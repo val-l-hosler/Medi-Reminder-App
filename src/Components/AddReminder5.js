@@ -18,8 +18,8 @@ export default function AddReminder5() {
     const buttonSx = {
         fontSize: "17px",
         height: "5.75ch",
-        ml: 2.5,
-        mr: 2.5,
+        ml: 1.5,
+        mr: 1.5,
         width: "auto"
     };
 
@@ -37,7 +37,8 @@ export default function AddReminder5() {
     };
 
     const containerSx = {
-        m: 0,
+        mb: 5,
+        mt: 5,
         pl: 5,
         pr: 5,
         width: "100%"

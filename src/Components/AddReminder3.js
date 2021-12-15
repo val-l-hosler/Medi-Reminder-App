@@ -33,7 +33,8 @@ export default function AddReminder3() {
     };
 
     const containerSx = {
-        m: 0,
+        mb: 5,
+        mt: 5,
         pl: 5,
         pr: 5,
         width: "100%"
@@ -41,8 +42,8 @@ export default function AddReminder3() {
 
     const iconButtonSx = {
         fontSize: 75,
-        ml: 2.5,
-        mr: 2.5
+        ml: 1.5,
+        mr: 1.5
     };
 
     const linkSx = {

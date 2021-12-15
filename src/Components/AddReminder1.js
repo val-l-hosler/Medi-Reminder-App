@@ -66,7 +66,8 @@ export default function AddReminder1() {
     };
 
     const containerSx = {
-        m: 0,
+        mb: 5,
+        mt: 5,
         pl: 5,
         pr: 5,
         width: "100%"
@@ -163,8 +164,10 @@ export default function AddReminder1() {
 
                         <DoseInput control={control} suggestions={setSuggestions()[1]} variant={"outlined"}/>
 
-                        <Button disabled={!formState.isValid}
-                                type="submit"><ArrowForwardIcon sx={iconButtonSx}/></Button>
+                        <Box>
+                            <Button disabled={!formState.isValid}
+                                    type="submit"><ArrowForwardIcon sx={iconButtonSx}/></Button>
+                        </Box>
                     </Box>
                 </form>
             </Container>

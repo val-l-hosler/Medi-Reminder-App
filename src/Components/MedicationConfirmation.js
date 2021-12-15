@@ -15,7 +15,8 @@ export default function MedicationConfirmation() {
     };
 
     const containerSx = {
-        m: 0,
+        mb: 5,
+        mt: 5,
         pl: 5,
         pr: 5,
         width: "100%"

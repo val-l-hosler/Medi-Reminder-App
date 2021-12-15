@@ -36,8 +36,8 @@ export default function DisplayReminders() {
         alignItems: "center",
         display: "flex",
         flexDirection: "column",
-        ml: "50px",
-        mr: "50px"
+        ml: 5,
+        mr: 5
     };
 
     const buttonSx = {
@@ -51,13 +51,10 @@ export default function DisplayReminders() {
         bgcolor: "#eeeeee",
         boxShadow: 3,
         mb: 5,
-        mt: 5,
-        pb: 0,
-        pt: 0
+        mt: 5
     };
 
     const containerSx = {
-        m: 0,
         pl: 5,
         pr: 5,
         width: "100%"
@@ -82,7 +79,6 @@ export default function DisplayReminders() {
     };
 
     const dialogTitleSx = {
-        m: 0,
         p: 3
     };
 
