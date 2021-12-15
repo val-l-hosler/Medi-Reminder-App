@@ -20,14 +20,14 @@ import DoseInput from "./DoseInput.js";
 import NoRegisteredMedications from "./NoRegisteredMedications";
 
 const doseSuggestions = [
-    {label: "10"},
-    {label: "20"},
-    {label: "30"},
-    {label: "40"},
-    {label: "50"},
-    {label: "60"},
-    {label: "70"},
-    {label: "80"}
+    {label: "10 mg"},
+    {label: "20 mg"},
+    {label: "30 mg"},
+    {label: "40 mg"},
+    {label: "50 mg"},
+    {label: "60 mg"},
+    {label: "70 mg"},
+    {label: "80 mg"}
 ];
 
 // Form validation using Yup

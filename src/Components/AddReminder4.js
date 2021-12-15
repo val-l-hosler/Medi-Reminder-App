@@ -36,7 +36,11 @@ export default function AddReminder4() {
     };
 
     const containerSx = {
-        m: 0,
+        height: "calc(100vh - 136px)",
+        mb: 5,
+        ml: 0,
+        mr: 0,
+        mt: 5,
         pl: 5,
         pr: 5,
         width: "100%"

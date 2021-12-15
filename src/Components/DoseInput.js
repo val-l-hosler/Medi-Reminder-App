@@ -39,7 +39,7 @@ export default function DoseInput(params) {
                             id="dose"
                             label="Dose"
                             name="dose"
-                            type="numeric"
+                            type="search"
                             variant={params.variant}
                             inputRef={ref}
                             {...tfParams}

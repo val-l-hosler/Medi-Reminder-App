@@ -28,3 +28,21 @@ L
 src/App.js,1\e\1e43fa63aecd2127be034b3fb9d4caa172275714
 E
 src/Components/Nav.js,6\a\6aa63523b1eaff6438b9b87e91abdf8ff57bbb05
+X
+(src/Components/MedicationConfirmation.js,2\f\2fb66e3899185ed0f61f0dbbbb1aaa24362d47b0
+K
+src/Components/DaysInput.js,b\4\b4e26ab0e16c37e70a30904b110f7b779876d292
+G
+src/Components/Login.js,5\c\5c95e99eef1ecd19e2b1d97e1a347109383c6351
+Y
+)src/Components/NoRegisteredMedications.js,c\f\cfb7a9732b89a735fbbbeafb6e5760634287ac99
+P
+ src/Components/SingleDayInput.js,3\e\3e42c44a936fceec7d418f09aff97ab3609777ce
+N
+src/Components/AddReminder3.js,9\b\9bff7d6fe054e3a0206aaf17f74ecf343a8edf64
+N
+src/Components/AddReminder2.js,f\6\f64a829177bdc5a53a095d0595d7d1ecc3c239fb
+K
+src/Components/TimeInput.js,b\e\bef4133a614f8ff60ce6e03cc949dc04012a404d
+<
+package.json,7\0\7030d0b2f71b999ff89a343de08c414af32fc93a
