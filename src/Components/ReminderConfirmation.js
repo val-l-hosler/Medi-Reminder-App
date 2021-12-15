@@ -37,7 +37,7 @@ export default function ReminderConfirmation() {
         <Container sx={containerSx}>
             <Box style={{flexDirection: "column"}}>
                 <Typography sx={typographyMedicationSx} variant="h5">
-                    You have added a reminder for {getReminder().dose} mg of {getReminder().medication} to
+                    You have added a reminder for {getReminder().dose} of {getReminder().medication} to
                     your reminder list.
                 </Typography>
 

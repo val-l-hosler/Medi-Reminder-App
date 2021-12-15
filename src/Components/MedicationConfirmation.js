@@ -37,7 +37,7 @@ export default function MedicationConfirmation() {
         <Container sx={containerSx}>
             <Box style={{flexDirection: "column"}}>
                 <Typography sx={typographyMedicationSx} variant="h5">
-                    You have added {getMedication().dose} mg of {getMedication().medication} to
+                    You have added {getMedication().dose} of {getMedication().medication} to
                     your medication list.
                 </Typography>
 
