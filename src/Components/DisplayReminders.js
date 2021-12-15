@@ -322,7 +322,7 @@ export default function DisplayReminders() {
                             Medication: {reminder.medication}
                         </Typography>
                         <Typography sx={typographySx} variant="h5">
-                            Dose: {reminder.dose} mg
+                            Dose: {reminder.dose}
                         </Typography>
                         <Typography sx={typographyChipSx} variant="h5">
                             Days: <ChipList id={reminder.id} arr={reminder.days} objKey={"days"}/>
@@ -421,8 +421,8 @@ export default function DisplayReminders() {
                     onClose={handleCloseDelete}
                 >
                     <Box sx={dialogBoxSx}>
-                        <Typography variant="h5" sx={{m: 5}}> Do you want to delete the reminder for {reminder.dose} mg
-                            of {reminder.medication}? </Typography>
+                        <Typography variant="h5" sx={{m: 5}}> Do you want to delete the reminder
+                            for {reminder.dose} of {reminder.medication}? </Typography>
 
                         <Box>
                             <Button onClick={() => deleteReminder(reminder.id, parsed)}

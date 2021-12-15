@@ -183,7 +183,7 @@ export default function DisplayMedications() {
                             Medication: {medication.medication}
                         </Typography>
                         <Typography sx={typographyMedicationSx} variant="h5">
-                            Dose: {medication.dose} mg
+                            Dose: {medication.dose}
                         </Typography>
                     </CardContent>
                     <Box>
@@ -205,8 +205,8 @@ export default function DisplayMedications() {
                     onClose={handleCloseDelete}
                 >
                     <Box sx={dialogBoxSx}>
-                        <Typography variant="h5" sx={{m: 5}}> Do you want to delete {medication.dose} mg
-                            of {medication.medication}? </Typography>
+                        <Typography variant="h5" sx={{m: 5}}> Do you want to
+                            delete {medication.dose} of {medication.medication}? </Typography>
 
                         <Box>
                             <Button onClick={() => deleteMedication(medication.id, parsed)}

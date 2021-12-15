@@ -123,7 +123,7 @@ export default function AddReminder5() {
                     Medication: {medication.medication}
                 </Typography>
                 <Typography sx={typographySx} variant="h5">
-                    Dose: {medication.dose} mg
+                    Dose: {medication.dose}
                 </Typography>
                 <Typography variant="h5">
                     Days: <ChipList arr={medication.days}/>

@@ -30,7 +30,7 @@ export default function NoRegisteredMedications() {
             </CardContent>
             <Box>
                 <Button href="/add-medication" size="large" sx={buttonSx}
-                        variant="contained">Add med</Button>
+                        variant="contained">Add medication</Button>
             </Box>
         </Card>
     );
