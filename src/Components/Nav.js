@@ -26,6 +26,8 @@ export default function Nav() {
     const containerSx = {
         mb: 5,
         mt: 5,
+        pl: 0,
+        pr: 0,
         width: "100%"
     }
 

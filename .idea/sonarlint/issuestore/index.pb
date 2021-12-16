@@ -25,14 +25,8 @@ N
 src/Components/AddReminder4.js,6\6\6652c0983661d8c7cb77a1c0a73d2e6428109561
 N
 src/Components/AddReminder3.js,9\b\9bff7d6fe054e3a0206aaf17f74ecf343a8edf64
-N
-src/Components/AddReminder2.js,f\6\f64a829177bdc5a53a095d0595d7d1ecc3c239fb
-N
-src/Components/AddReminder1.js,b\e\be7604fda6e5c811fbede9c76e45a3bdb13a62f0
 Q
 !src/Components/AddMedication_B.js,3\f\3f279ff6e1f423258e8bb8802a3c44d2e712399d
-O
-src/Components/AddMedication.js,6\d\6de4c4e45f9e83bb09924e8b7e3f67faabd77396
 T
 $src/Components/DisplayMedications.js,d\5\d52f0900e11a3ba59030eb8d296d081c51ee4e66
 R
@@ -57,5 +51,3 @@ K
 src/Components/DoseInput.js,4\0\40977c34507adbd7a4d2fdd243adb4e42b88f317
 Y
 )src/Components/NoRegisteredMedications.js,c\f\cfb7a9732b89a735fbbbeafb6e5760634287ac99
-E
-src/Components/Nav.js,6\a\6aa63523b1eaff6438b9b87e91abdf8ff57bbb05

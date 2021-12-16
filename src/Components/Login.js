@@ -41,6 +41,8 @@ export default function Login() {
 
     const containerSx = {
         pb: 5,
+        pl: 0,
+        pr: 0,
         pt: 5,
         width: "100%"
     };
