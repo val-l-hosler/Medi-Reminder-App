@@ -46,7 +46,9 @@ export default function Login() {
     };
 
     const cardSx = {
-        m: 5,
+        ml: 5,
+        mr: 5,
+        mt: 5,
         p: 5
     };
 
