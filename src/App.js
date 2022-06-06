@@ -1,20 +1,20 @@
 import "./App.css";
 
 // Custom components
-import AddMedication from "./Components/AddMedication.js";
+import AddMedication from "./Components/Add Medication/AddMedication.js";
 // import AddMedication_B from "./Components/AddMedication_B.js";
-import AddReminder1 from "./Components/AddReminder1.js";
-import AddReminder2 from "./Components/AddReminder2.js";
-import AddReminder3 from "./Components/AddReminder3.js";
-import AddReminder4 from "./Components/AddReminder4.js";
-import AddReminder5 from "./Components/AddReminder5.js";
-import DisplayMedications from "./Components/DisplayMedications.js";
-import DisplayReminders from "./Components/DisplayReminders.js";
-import Login from "./Components/Login.js";
-import MedicationConfirmation from "./Components/MedicationConfirmation.js";
-import MenuAppBar from "./Components/MenuAppBar.js";
-import Nav from "./Components/Nav.js";
-import ReminderConfirmation from "./Components/ReminderConfirmation.js";
+import AddReminder1 from "./Components/Add Reminder/AddReminder1.js";
+import AddReminder2 from "./Components/Add Reminder/AddReminder2.js";
+import AddReminder3 from "./Components/Add Reminder/AddReminder3.js";
+import AddReminder4 from "./Components/Add Reminder/AddReminder4.js";
+import AddReminder5 from "./Components/Add Reminder/AddReminder5.js";
+import DisplayMedications from "./Components/Registered Medications/DisplayMedications.js";
+import DisplayReminders from "./Components/Registered Reminders/DisplayReminders.js";
+import Login from "./Components/Login/Login.js";
+import MedicationConfirmation from "./Components/Add Medication/MedicationConfirmation.js";
+import MenuAppBar from "./Components/Shared/MenuAppBar.js";
+import Nav from "./Components/Home/Nav.js";
+import ReminderConfirmation from "./Components/Add Reminder/ReminderConfirmation.js";
 
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 
@@ -34,7 +34,6 @@ export default function App() {
                             <MenuAppBar/>
                             <div className="Container">
                                 <AddMedication/>
-                                {/* <AddMedication_B/> */}
                             </div>
                         </div>
                     }/>
