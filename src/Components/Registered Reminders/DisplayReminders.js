@@ -111,10 +111,11 @@ const typographySx = {
 export default function DisplayReminders() {
     // This is the array of reminder objects that will be displayed on the cards
     const reminderList = localStorage.getItem("reminders");
-    let parsed = JSON.parse(reminderList);
+    let parsedList = JSON.parse(reminderList);
 
-    if (parsed !== null) {
-        parsed = parsed.filter((index) => index.submitted === true);
+    // This checks to make sure that all the displayed reminders are fully complete
+    if (parsedList !== null) {
+        parsedList = parsedList.filter((index) => index.submitted === true);
     }
 
     // This forces the component to re-render
@@ -122,7 +123,7 @@ export default function DisplayReminders() {
     const forceUpdate = useCallback(() => updateState({}), []);
 
     const ChipList = (params) => {
-        if (params.objKey === "times") {
+        if (params.type === "times") {
             params.arr.sort((a, b) => {
                 return new Date('1970/01/01 ' + a) - new Date('1970/01/01 ' + b);
             });
@@ -144,62 +145,70 @@ export default function DisplayReminders() {
             });
         }
 
+        // This checks to see if Every day was chosen for the days chips
         let everyDayFlag = false;
         let everyDayObj;
 
-        for (const index of params.arr) {
+        params.arr.some(index => {
             if (index === "Every day") {
                 everyDayFlag = true;
                 everyDayObj = index;
-                break;
+                return false;
             }
-        }
+
+            return true;
+        });
 
         let unique;
+        let editableUnique;
 
         if (!everyDayFlag) {
             unique = [...new Set(params.arr)];
+            editableUnique = [...unique];
         } else {
             unique = [everyDayObj];
+            editableUnique = [...unique];
 
-            if (params.arr.length > 1) {
+            if (editableUnique.length > 0) {
                 // This adds "Every day" to the beginning of the arr
-                params.arr.unshift("Every day");
+                editableUnique.unshift("Every day");
                 // This removes all the other days
-                params.arr.splice(1);
+                editableUnique.splice(1);
 
-                parsed.forEach((index, i) => {
-                    if (index.id === params.id) {
+                for (const reminder of parsedList) {
+                    if (reminder.id === params.parentId) {
                         // This resets the appropriate object's key/value pair with the updated list
-                        parsed[i][params.objKey] = params.arr;
+                        reminder[params.type] = editableUnique;
+                        break;
                     }
-                });
+                }
 
-                localStorage.setItem("reminders", JSON.stringify(parsed));
+                localStorage.setItem("reminders", JSON.stringify(parsedList));
             }
         }
 
         return (unique.map((chip, uIndex) => {
             const chipKey = "Chip_" + uuidv4();
 
-            const handleDelete = (key, i) => {
+            const handleDelete = (uIdx) => {
                 // This removes the appropriate index from the array that is passed into the params
-                params.arr.splice(i, 1);
+                editableUnique.splice(uIdx, 1);
 
-                parsed.forEach((parsedIndex, j) => {
-                    if (parsedIndex.id === key) {
+                for (const reminder of parsedList) {
+                    if (reminder.id === params.parentId) {
                         // This resets the appropriate object's key/value pair with the updated list
-                        parsed[j][params.objKey] = params.arr;
+                        reminder[params.type] = editableUnique;
+                        break;
                     }
-                });
+                }
 
-                localStorage.setItem("reminders", JSON.stringify(parsed));
+                localStorage.setItem("reminders", JSON.stringify(parsedList));
 
                 // This forces the reminder list to re-render
                 forceUpdate();
             };
 
-            return (<Chip onDelete={() => handleDelete(chipKey, uIndex)} sx={chipSx} key={chipKey}
+            return (<Chip onDelete={() => handleDelete(uIndex)} sx={chipSx} key={chipKey}
                           label={chip}/>);
         }));
     };
@@ -209,11 +218,12 @@ export default function DisplayReminders() {
         const getThisReminder = (reminderId, parsedReminders) => {
             let index;
 
-            parsedReminders.forEach((pReminder, i) => {
-                if (pReminder.id === reminderId) {
+            for (let i = 0; i < parsedReminders.length; i++) {
+                if (parsedReminders[i].id === reminderId) {
                     index = i;
+                    break;
                 }
-            });
+            }
 
             return [parsedReminders[index], index];
         };
@@ -240,11 +250,10 @@ export default function DisplayReminders() {
 
         // Function that is triggered when the add day(s) form is submitted
         const addDay = (reminderId, parsedReminders, data) => {
-            const thisReminder = getThisReminder(reminderId, parsedReminders)[0];
-            const thisReminderIndex = getThisReminder(reminderId, parsedReminders)[1];
+            const [thisReminder, thisReminderIndex] = getThisReminder(reminderId, parsedReminders);
             thisReminder.days = [...thisReminder.days, data.days];
-            parsed[thisReminderIndex] = thisReminder;
-            localStorage.setItem("reminders", JSON.stringify(parsed));
+            parsedList[thisReminderIndex] = thisReminder;
+            localStorage.setItem("reminders", JSON.stringify(parsedList));
 
             // This forces the dialog to close
             setOpenAddDay(false);
@@ -274,8 +283,7 @@ export default function DisplayReminders() {
 
         // Function that is triggered when the add time form is submitted
         const addTime = (reminderId, parsedReminders, data) => {
-            const thisReminder = getThisReminder(reminderId, parsedReminders)[0];
-            const thisReminderIndex = getThisReminder(reminderId, parsedReminders)[1];
+            const [thisReminder, thisReminderIndex] = getThisReminder(reminderId, parsedReminders);
             let time;
 
             Object.values(data).forEach((value) => {
@@ -299,9 +307,9 @@ export default function DisplayReminders() {
                 time = finalTime;
             });
 
-            thisReminder.time = [...thisReminder.time, time];
-            parsed[thisReminderIndex] = thisReminder;
-            localStorage.setItem("reminders", JSON.stringify(parsed));
+            thisReminder.times = [...thisReminder.times, time];
+            parsedList[thisReminderIndex] = thisReminder;
+            localStorage.setItem("reminders", JSON.stringify(parsedList));
 
             // This forces the dialog to close
             setOpenAddTime(false);
@@ -321,9 +329,9 @@ export default function DisplayReminders() {
 
         // Function for the delete reminder button
         const deleteReminder = (reminderId, parsedReminders) => {
-            const thisReminderIndex = getThisReminder(reminderId, parsedReminders)[1];
+            const [, thisReminderIndex] = getThisReminder(reminderId, parsedReminders);
 
-            if (parsedReminders.length > 1) {
+            if (parsedReminders.length > 0) {
                 // This removes the appropriate index of the array of reminder objects
                 parsedReminders.splice(thisReminderIndex, 1);
             } else {
@@ -351,13 +359,13 @@ export default function DisplayReminders() {
                             Dose: {reminder.dose}
                         </Typography>
                         <Typography sx={typographyChipSx} variant="h5">
-                            Days: <ChipList id={reminder.id} arr={reminder.days} objKey={"days"}/>
+                            Days: <ChipList parentId={reminder.id} arr={reminder.days} type={"days"}/>
                             {/* Note: the onDelete creates the icon in the appropriate spot and there isn't an onAdd option */}
                             <Chip color={"primary"} onDelete={handleClickAddDay} deleteIcon={<AddIcon/>} sx={chipSx}
                                   label={"Add day(s)"}/>
                         </Typography>
                         <Typography sx={typographyChipSx} variant="h5">
-                            Times: <ChipList id={reminder.id} arr={reminder.time} objKey={"times"}/>
+                            Times: <ChipList parentId={reminder.id} arr={reminder.times} type={"times"}/>
                             {/* Note: the onDelete creates the icon in the appropriate spot and there isn't an onAdd option */}
                             <Chip color={"primary"} onDelete={handleClickAddTime} deleteIcon={<AddIcon/>} sx={chipSx}
                                   label={"Add time"}/>
@@ -387,7 +395,7 @@ export default function DisplayReminders() {
                     </DialogTitle>
 
                     <Box sx={dialogBoxSx}>
-                        <form onSubmit={handleSubmitAddDay((data) => addDay(reminder.id, parsed, data))} noValidate>
+                        <form onSubmit={handleSubmitAddDay((data) => addDay(reminder.id, parsedList, data))} noValidate>
                             <Box sx={boxSx}>
                                 <Typography sx={dialogTypographySx} variant="h5">
                                     Add day(s)
@@ -422,7 +430,8 @@ export default function DisplayReminders() {
                     </DialogTitle>
 
                     <Box sx={dialogBoxSx}>
-                        <form onSubmit={handleSubmitAddTime((data) => addTime(reminder.id, parsed, data))} noValidate>
+                        <form onSubmit={handleSubmitAddTime((data) => addTime(reminder.id, parsedList, data))}
+                              noValidate>
                             <Box sx={boxSx}>
                                 <Typography sx={dialogTypographySx} variant="h5">
                                     Add time
@@ -451,7 +460,7 @@ export default function DisplayReminders() {
                             for {reminder.dose} of {reminder.medication}? </Typography>
 
                         <Box>
-                            <Button onClick={() => deleteReminder(reminder.id, parsed)}
+                            <Button onClick={() => deleteReminder(reminder.id, parsedList)}
                                     size="large"
                                     sx={confirmationButtonSx} variant="contained">Yes</Button>
                             <Button onClick={handleCloseDelete} color="error"
@@ -464,21 +473,21 @@ export default function DisplayReminders() {
         )
     }; // End Reminder component
 
-    let reminders;
+    let reminderComps;
 
-    if (parsed !== null && parsed.length > 0) {
-        reminders = parsed.map((reminder) => {
+    if (parsedList !== null && parsedList.length > 0) {
+        reminderComps = parsedList.map((reminder) => {
             return (<Reminder reminder={reminder} key={"Reminder_" + reminder.id}/>)
         });
     } else {
-        reminders = <NoRegisteredReminders/>;
+        reminderComps = <NoRegisteredReminders/>;
     }
 
     // This is the actual final block of code that is rendered for this component
     return (
         <Container sx={containerSx}>
             <Box style={{flexDirection: "column"}}>
-                {reminders}
+                {reminderComps}
             </Box>
         </Container>
     );

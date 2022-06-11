@@ -69,8 +69,8 @@ const breadcrumbs = [
 // This gets the number of timePicker inputs that need to be created
 const getNumber = () => {
     const reminderList = localStorage.getItem("reminders");
-    const parsed = JSON.parse(reminderList);
-    const latestReminder = parsed[parsed.length - 1];
+    const parsedList = JSON.parse(reminderList);
+    const latestReminder = parsedList[parsedList.length - 1];
     return (latestReminder.timesPerDay);
 };
 
@@ -84,14 +84,14 @@ const onSubmit = (data) => {
             dose,
             days: [],
             timesPerDay: 0,
-            time: [],
+            times: [],
             submitted: false
         }]));
     }
 
     const reminderList = localStorage.getItem("reminders");
-    const parsed = JSON.parse(reminderList);
-    const lastReminder = parsed[parsed.length - 1];
+    const parsedList = JSON.parse(reminderList);
+    const lastReminder = parsedList[parsedList.length - 1];
     const times = [];
 
     Object.values(data).forEach((value) => {
@@ -115,9 +115,9 @@ const onSubmit = (data) => {
         times.push(finalTime);
     });
 
-    lastReminder.time = times;
-    parsed[parsed.length - 1] = lastReminder;
-    localStorage.setItem("reminders", JSON.stringify(parsed));
+    lastReminder.times = times;
+    parsedList[parsedList.length - 1] = lastReminder;
+    localStorage.setItem("reminders", JSON.stringify(parsedList));
 
     fetch("/add-reminder/days/nums/times/confirmation")
         .then(() => {
@@ -126,12 +126,12 @@ const onSubmit = (data) => {
 };
 
 export default function AddReminder4() {
-    const allTimes = [];
+    const allTimesChips = [];
 
     const {control, handleSubmit, setValue, register, getValues} = useForm();
 
     for (let i = 0; i < getNumber(); i++) {
-        allTimes.push(<TimeInput setValue={setValue} getValues={getValues} register={register} control={control}
+        allTimesChips.push(<TimeInput setValue={setValue} getValues={getValues} register={register} control={control}
                                  counter={i + 1} key={"TimeInputs_" + uuidv4()} variant={"outlined"}/>);
     }
 
@@ -149,7 +149,7 @@ export default function AddReminder4() {
             <form onSubmit={handleSubmit(onSubmit)} noValidate>
                 <Box sx={boxSx}>
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
-                        {allTimes}
+                        {allTimesChips}
                     </LocalizationProvider>
 
                     <Box>

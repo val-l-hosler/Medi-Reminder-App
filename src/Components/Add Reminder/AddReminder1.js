@@ -76,26 +76,26 @@ const onSubmit = (data) => {
             dose,
             days: [],
             timesPerDay: 0,
-            time: [],
+            times: [],
             submitted: false
         }]));
     } else {
         const reminderList = localStorage.getItem("reminders");
-        const parsed = JSON.parse(reminderList);
-        const lastReminder = parsed[parsed.length - 1];
+        const parsedList = JSON.parse(reminderList);
+        const lastReminder = parsedList[parsedList.length - 1];
 
         if (lastReminder.submitted === true) {
-            parsed.push({
+            parsedList.push({
                 id: uuidv4(),
                 medication,
                 dose,
                 days: [],
                 timesPerDay: 0,
-                time: [],
+                times: [],
                 submitted: false
             });
 
-            localStorage.setItem("reminders", JSON.stringify(parsed));
+            localStorage.setItem("reminders", JSON.stringify(parsedList));
         }
     }
 
@@ -108,13 +108,13 @@ const onSubmit = (data) => {
 const setSuggestions = () => {
     // This is the array of medication objects that will be displayed on the cards
     const medicationList = localStorage.getItem("medications");
-    const parsed = JSON.parse(medicationList);
+    const parsedList = JSON.parse(medicationList);
 
-    if (parsed !== null && parsed.length > 0) {
+    if (parsedList !== null && parsedList.length > 0) {
         const meds = {};
         const doses = {};
 
-        parsed.forEach((medication, index) => {
+        parsedList.forEach((medication, index) => {
             meds[medication.medication] = index;
             doses[medication.dose] = index;
         });
@@ -142,7 +142,7 @@ export default function AddReminder1() {
     });
 
     // If there are any registered medications
-    if (setSuggestions().length > 1) {
+    if (setSuggestions().length > 0) {
         return (
             <Container sx={containerSx}>
                 <Stack spacing={2} sx={stackSx}>

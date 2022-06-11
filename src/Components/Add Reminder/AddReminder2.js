@@ -89,14 +89,14 @@ const onSubmit = (data) => {
             dose,
             days: [],
             timesPerDay: 0,
-            time: [],
+            times: [],
             submitted: false
         }]));
     }
 
     const reminderList = localStorage.getItem("reminders");
-    const parsed = JSON.parse(reminderList);
-    const lastReminder = parsed[parsed.length - 1];
+    const parsedList = JSON.parse(reminderList);
+    const lastReminder = parsedList[parsedList.length - 1];
     const daysArr = [];
 
     // The data for the days is stored in an object that contains a key, daysOfWeek. This key's value is an array of objects in the same format as initOptions
@@ -105,8 +105,8 @@ const onSubmit = (data) => {
     }
 
     lastReminder.days = daysArr;
-    parsed[parsed.length - 1] = lastReminder;
-    localStorage.setItem("reminders", JSON.stringify(parsed));
+    parsedList[parsedList.length - 1] = lastReminder;
+    localStorage.setItem("reminders", JSON.stringify(parsedList));
 
     fetch("/add-reminder/days/nums")
         .then(() => {

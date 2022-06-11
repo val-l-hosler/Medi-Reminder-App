@@ -105,7 +105,7 @@ const updateDoseTypographySx = {
 export default function DisplayMedications() {
     // This is the array of medication objects that will be displayed on the cards
     const medicationList = localStorage.getItem("medications");
-    const parsed = JSON.parse(medicationList);
+    const parsedList = JSON.parse(medicationList);
 
     // This forces the component to re-render after a medication has been deleted
     const [, updateState] = useState();
@@ -129,6 +129,8 @@ export default function DisplayMedications() {
 
         // Function for the update dose button
         const updateDose = (medicationId, parsedMedications, data) => {
+            const {dose: updatedDose} = data;
+
             let med;
 
             for (const index of parsedMedications) {
@@ -137,7 +139,7 @@ export default function DisplayMedications() {
                 }
             }
 
-            med.dose = data.dose;
+            med.dose = updatedDose;
             localStorage.setItem("medications", JSON.stringify(parsedMedications));
 
             // This forces the dialog to close
@@ -160,10 +162,11 @@ export default function DisplayMedications() {
             for (let i = 0; i < parsedMedications.length; i++) {
                 if (parsedMedications[i].id === medicationId) {
                     index = i;
+                    break;
                 }
             }
 
-            if (parsedMedications.length > 1) {
+            if (parsedMedications.length > 0) {
                 // This removes the appropriate index of the array of medication objects
                 parsedMedications.splice(index, 1);
             } else {
@@ -214,7 +217,7 @@ export default function DisplayMedications() {
                             delete {medication.dose} of {medication.medication}? </Typography>
 
                         <Box>
-                            <Button onClick={() => deleteMedication(medication.id, parsed)}
+                            <Button onClick={() => deleteMedication(medication.id, parsedList)}
                                     size="large"
                                     sx={buttonSx} variant="contained">Yes</Button>
                             <Button onClick={handleCloseDelete} color="error"
@@ -243,7 +246,7 @@ export default function DisplayMedications() {
                     </DialogTitle>
 
                     <Box sx={dialogBoxSx}>
-                        <form onSubmit={handleSubmit((data) => updateDose(medication.id, parsed, data))} noValidate>
+                        <form onSubmit={handleSubmit((data) => updateDose(medication.id, parsedList, data))} noValidate>
                             <Typography sx={updateDoseTypographySx} variant="h5">
                                 Update dose
                             </Typography>
@@ -264,22 +267,22 @@ export default function DisplayMedications() {
         )
     }; // End Medication component
 
-    let medications;
+    let medicationComps;
 
     // I also set this condition (localStorage.getItem("medications").length > 2) because if the array is empty, the length === 2
     if (localStorage.getItem("medications") !== null && localStorage.getItem("medications").length > 2) {
-        medications = parsed.map((medication) => {
+        medicationComps = parsedList.map((medication) => {
             return (<Medication medication={medication} key={"Medication_" + medication.id}/>)
         });
     } else {
-        medications = <NoRegisteredMedications/>;
+        medicationComps = <NoRegisteredMedications/>;
     }
 
     // This is the actual final block of code that is rendered for this component
     return (
         <Container sx={containerSx}>
             <Box style={{flexDirection: "column"}}>
-                {medications}
+                {medicationComps}
             </Box>
         </Container>
     );

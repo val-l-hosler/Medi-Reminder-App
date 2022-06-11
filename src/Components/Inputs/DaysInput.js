@@ -7,13 +7,13 @@ import Autocomplete from "@mui/material/Autocomplete";
 
 const initOptions = [
     {label: "Every day", disabled: false},
-    {label: "Sunday", disabled: false},
     {label: "Monday", disabled: false},
     {label: "Tuesday", disabled: false},
     {label: "Wednesday", disabled: false},
     {label: "Thursday", disabled: false},
     {label: "Friday", disabled: false},
-    {label: "Saturday", disabled: false}
+    {label: "Saturday", disabled: false},
+    {label: "Sunday", disabled: false}
 ];
 
 // Styles
@@ -28,6 +28,7 @@ export default function DaysInput(params) {
     const onChangeDisabled = (_event, valueArr) => {
         setSelected(valueArr);
 
+        // The hook is in conditional statements because no matter what it will be set
         if (valueArr.length === 0) {
             const resetOptions = [...daysOfWeekSuggestions].map((opt) => {
                 opt.disabled = false;

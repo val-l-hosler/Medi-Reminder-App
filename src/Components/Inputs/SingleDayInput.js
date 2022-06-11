@@ -7,13 +7,13 @@ import Autocomplete from "@mui/material/Autocomplete";
 
 const daysOfWeekSuggestions = [
     {label: "Every day"},
-    {label: "Sunday"},
     {label: "Monday"},
     {label: "Tuesday"},
     {label: "Wednesday"},
     {label: "Thursday"},
     {label: "Friday"},
-    {label: "Saturday"}
+    {label: "Saturday"},
+    {label: "Sunday"}
 ];
 
 // Styles

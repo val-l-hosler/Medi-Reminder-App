@@ -95,7 +95,7 @@ const breadcrumbs = [
 ];
 
 const ChipList = (params) => {
-    if (params.objKey === "times") {
+    if (params.type === "times") {
         params.arr.sort((a, b) => {
             return new Date('1970/01/01 ' + a) - new Date('1970/01/01 ' + b);
         });
@@ -127,12 +127,12 @@ const ChipList = (params) => {
 // Functions
 const getLastReminder = () => {
     const reminderList = localStorage.getItem("reminders");
-    const parsed = JSON.parse(reminderList);
-    return parsed[parsed.length - 1];
+    const parsedList = JSON.parse(reminderList);
+    return parsedList[parsedList.length - 1];
 };
 
 const ConfirmationMessage = () => {
-    const {medication, dose, days, time} = getLastReminder();
+    const {medication, dose, days, times} = getLastReminder();
 
     return (
         <Box>
@@ -149,10 +149,10 @@ const ConfirmationMessage = () => {
                 Dose: {dose}
             </Typography>
             <Typography variant="h5">
-                Days: <ChipList arr={days} objKey={"days"}/>
+                Days: <ChipList arr={days} type={"days"}/>
             </Typography>
             <Typography variant="h5">
-                Times: <ChipList arr={time} objKey={"times"}/>
+                Times: <ChipList arr={times} type={"times"}/>
             </Typography>
 
             <Divider sx={{mb: 3.75, mt: 2.75}}/>
@@ -162,11 +162,11 @@ const ConfirmationMessage = () => {
 
 const onSubmit = () => {
     const reminderList = localStorage.getItem("reminders");
-    const parsed = JSON.parse(reminderList);
+    const parsedList = JSON.parse(reminderList);
     const lastReminder = getLastReminder();
     lastReminder.submitted = true;
-    parsed[parsed.length - 1] = lastReminder;
-    localStorage.setItem("reminders", JSON.stringify(parsed));
+    parsedList[parsedList.length - 1] = lastReminder;
+    localStorage.setItem("reminders", JSON.stringify(parsedList));
 
     fetch("/reminder-confirmation")
         .then(() => {

@@ -29,8 +29,8 @@ export default function ReminderConfirmation() {
 
     const getReminder = () => {
         const reminderList = localStorage.getItem("reminders");
-        const parsed = JSON.parse(reminderList);
-        return (parsed[parsed.length - 1]);
+        const parsedList = JSON.parse(reminderList);
+        return (parsedList[parsedList.length - 1]);
     };
 
     return (

@@ -86,17 +86,17 @@ const onSubmit = (data) => {
             dose,
             days: [],
             timesPerDay: 0,
-            time: [],
+            times: [],
             submitted: false
         }]));
     }
 
     const reminderList = localStorage.getItem("reminders");
-    const parsed = JSON.parse(reminderList);
-    const lastReminder = parsed[parsed.length - 1];
+    const parsedList = JSON.parse(reminderList);
+    const lastReminder = parsedList[parsedList.length - 1];
     lastReminder.timesPerDay = parseInt(data.times);
-    parsed[parsed.length - 1] = lastReminder;
-    localStorage.setItem("reminders", JSON.stringify(parsed));
+    parsedList[parsedList.length - 1] = lastReminder;
+    localStorage.setItem("reminders", JSON.stringify(parsedList));
 
     fetch("/add-reminder/days/nums/times")
         .then(() => {
