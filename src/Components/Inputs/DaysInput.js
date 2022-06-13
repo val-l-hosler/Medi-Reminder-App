@@ -21,10 +21,13 @@ const autoCompleteSx = {
     width: "100%"
 };
 
-export default function DaysInput(params) {
+export default function DaysInput({control, variant, setDays}) {
     const [daysOfWeekSuggestions, setOptions] = useState(initOptions);
     const [selected, setSelected] = useState([]);
 
+    if (setDays) {
+        console.log('in here')
+    }
     const onChangeDisabled = (_event, valueArr) => {
         setSelected(valueArr);
 
@@ -62,7 +65,7 @@ export default function DaysInput(params) {
     return (
         <Controller
             name="daysOfWeek"
-            control={params.control}
+            control={control}
             defaultValue={[]}
             render={({field: {ref, ...field}, fieldState: {error}}) => (
                 <Autocomplete
@@ -71,7 +74,7 @@ export default function DaysInput(params) {
                     disableClearable
                     filterSelectedOptions
                     multiple
-                    getOptionDisabled={(option) => !!option.disabled}
+                    getOptionDisabled={(option) => option.disabled}
                     id="days-autocomplete"
                     onChange={(event, value) => {
                         field.onChange(value);
@@ -89,7 +92,7 @@ export default function DaysInput(params) {
                             label="Day(s)"
                             name="daysOfWeek"
                             type="search"
-                            variant={params.variant}
+                            variant={variant}
                             inputRef={ref}
                             {...tfParams}
                         />

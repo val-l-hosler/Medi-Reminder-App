@@ -1,4 +1,3 @@
-import {useState} from "react";
 import {Controller} from "react-hook-form";
 
 // Material UI Components
@@ -22,11 +21,9 @@ const autoCompleteSx = {
 };
 
 export default function SingleDayInput(params) {
-    const [dayValue, setDayValue] = useState(null);
-
     return (
         <Controller
-            name="days"
+            name="day"
             control={params.control}
             render={({field: {ref, ...field}, fieldState: {error}}) => (
                 <Autocomplete
@@ -34,22 +31,21 @@ export default function SingleDayInput(params) {
                     autoHighlight
                     disableClearable
                     isOptionEqualToValue={(option, value) => value.label === option.label}
-                    id="days-autocomplete"
+                    id="day-autocomplete"
                     onChange={(_event, value) => {
                         field.onChange(value.label);
-                        setDayValue(value);
                     }}
                     options={daysOfWeekSuggestions}
-                    value={dayValue}
+                    value={null}
                     sx={autoCompleteSx}
                     renderInput={(tfParams) => (
                         <TextField
                             required
                             error={!!error}
                             helperText={error?.message}
-                            id="days"
-                            label="Day(s)"
-                            name="days"
+                            id="day"
+                            label="Day"
+                            name="day"
                             type="search"
                             variant={params.variant}
                             inputRef={ref}
