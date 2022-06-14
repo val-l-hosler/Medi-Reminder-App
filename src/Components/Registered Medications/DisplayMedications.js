@@ -25,7 +25,7 @@ export default function DisplayMedications() {
 
     let medicationComps;
 
-    if (parsedList) {
+    if (parsedList && parsedList.length > 0) {
         const stringified = [];
         const comparedComponents = [];
         const dupeIndexes = [];
