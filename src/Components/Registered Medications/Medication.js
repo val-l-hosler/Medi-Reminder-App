@@ -89,7 +89,7 @@ const updateDoseTypographySx = {
     textAlign: "center"
 };
 
-export default function Medication({medication, parsedList, updated, setUpdated, setParsedList}) {
+export default function Medication({medication, parsedList, updated, setUpdated}) {
     const {handleSubmit, control, formState} = useForm({
         mode: "onChange",
         resolver: yupResolver(validationSchema)
@@ -120,8 +120,8 @@ export default function Medication({medication, parsedList, updated, setUpdated,
         }
 
         med.dose = updatedDose;
-        localStorage.setItem("medications", JSON.stringify(parsedMedications));
-        setParsedList(JSON.stringify(parsedMedications));
+
+        localStorage.setItem("medications", JSON.stringify([...parsedMedications]));
 
         // This forces the dialog to close
         setOpenUpdate(false);
@@ -157,8 +157,7 @@ export default function Medication({medication, parsedList, updated, setUpdated,
             parsedMedications = [];
         }
 
-        localStorage.setItem("medications", JSON.stringify(parsedMedications));
-        setParsedList(JSON.stringify(parsedMedications));
+        localStorage.setItem("medications", JSON.stringify([...parsedMedications]));
 
         // This forces the dialog to close
         setOpenDelete(false);

@@ -20,7 +20,7 @@ export default function DisplayReminders() {
     let parsedList = JSON.parse(reminderList);
 
     // This checks to make sure that all the displayed reminders are fully complete
-    if (parsedList !== null) {
+    if (parsedList) {
         parsedList = parsedList.filter((index) => index.submitted === true);
     }
 
@@ -29,7 +29,7 @@ export default function DisplayReminders() {
 
     let reminderComps;
 
-    if (parsedList !== null && parsedList.length > 0) {
+    if (parsedList && parsedList.length > 0) {
         reminderComps = parsedList.map((reminder) => {
             return (<Reminder reminder={reminder} updated={updated} setUpdated={setUpdated} parsedList={parsedList}
                               key={"Reminder_" + reminder.id}/>)
