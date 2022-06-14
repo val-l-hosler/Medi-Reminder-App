@@ -141,7 +141,7 @@ export default function Medication({medication, parsedList, updated, setUpdated}
 
     // Function for the delete med button
     const deleteMedication = (medicationId, parsedMedications) => {
-        let index;
+        let index = -1;
 
         for (let i = 0; i < parsedMedications.length; i++) {
             if (parsedMedications[i].id === medicationId) {
@@ -150,14 +150,18 @@ export default function Medication({medication, parsedList, updated, setUpdated}
             }
         }
 
+        let updatedMedications = [];
+
         if (parsedMedications.length > 0) {
             // This removes the appropriate index of the array of medication objects
-            parsedMedications.splice(index, 1);
-        } else {
-            parsedMedications = [];
+            parsedMedications.forEach((medication, i) => {
+                if (index > -1 && index !== i) {
+                    updatedMedications.push(medication);
+                }
+            });
         }
 
-        localStorage.setItem("medications", JSON.stringify([...parsedMedications]));
+        localStorage.setItem("medications", JSON.stringify(updatedMedications));
 
         // This forces the dialog to close
         setOpenDelete(false);
