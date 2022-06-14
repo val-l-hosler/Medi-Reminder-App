@@ -18,6 +18,7 @@ const containerSx = {
 export default function DisplayMedications() {
     // This forces the DisplayMedications component to re-render after a medication has been deleted
     const [updated, setUpdated] = useState(false);
+    const [lastDeleted, setLastDeleted] = useState(null);
 
     // This is the array of medication objects that will be displayed on the cards
     const medicationList = localStorage.getItem("medications");
@@ -37,7 +38,7 @@ export default function DisplayMedications() {
 
         // This checks for duplicates
         stringified.forEach((arr, index) => {
-            if (!comparedComponents.includes(arr)) {
+            if (!comparedComponents.includes(arr) && !lastDeleted) {
                 comparedComponents.push(arr);
             } else {
                 dupeIndexes.push(index);
@@ -62,7 +63,7 @@ export default function DisplayMedications() {
         medicationComps = finalComponents.map((medication) => {
             return (
                 <Medication medication={medication} updated={updated} setUpdated={setUpdated} parsedList={parsedList}
-                            keepMounted={true} key={"Medication_" + medication.id}/>)
+                            setLastDeleted={setLastDeleted} key={"Medication_" + medication.id}/>)
         });
     } else {
         medicationComps = <NoRegisteredMedications/>;

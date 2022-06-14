@@ -89,7 +89,7 @@ const updateDoseTypographySx = {
     textAlign: "center"
 };
 
-export default function Medication({medication, parsedList, updated, setUpdated}) {
+export default function Medication({medication, parsedList, updated, setUpdated, setLastDeleted}) {
     const {handleSubmit, control, formState} = useForm({
         mode: "onChange",
         resolver: yupResolver(validationSchema)
@@ -157,6 +157,8 @@ export default function Medication({medication, parsedList, updated, setUpdated}
             parsedMedications.forEach((medication, i) => {
                 if (index > -1 && index !== i) {
                     updatedMedications.push(medication);
+                } else if (index === i) {
+                    setLastDeleted(medication);
                 }
             });
         }
