@@ -153,7 +153,7 @@ export default function Medication({medication, parsedList, updated, setUpdated}
             parsedMedications = [];
         }
 
-        localStorage.setItem("medications", JSON.stringify(parsedMedications));
+        localStorage.setItem("medications", JSON.stringify([...parsedMedications]));
 
         // This forces the dialog to close
         setOpenDelete(false);
