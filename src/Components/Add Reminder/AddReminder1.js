@@ -17,6 +17,7 @@ import Typography from "@mui/material/Typography";
 import DoseInput from "../Inputs/DoseInput.js";
 import MedicationInput from "../Inputs/MedicationInput.js";
 import NoRegisteredMedications from "../Registered Medications/NoRegisteredMedications";
+import {useState} from "react";
 
 const validationSchema = Yup.object().shape({
     medication: Yup.string()
@@ -104,42 +105,62 @@ const onSubmit = (data) => {
         });
 };
 
-const setSuggestions = () => {
-    // This is the array of medication objects that will be displayed on the cards
+// This does not need to be in the component because it doesn't use hooks
+const setNameSuggestions = () => {
     const medicationList = localStorage.getItem("medications");
     const parsedList = JSON.parse(medicationList);
 
     if (parsedList !== null && parsedList.length > 0) {
-        const meds = {};
-        const doses = {};
-
-        parsedList.forEach((medication, index) => {
-            meds[medication.medication] = index;
-            doses[medication.dose] = index;
+        const uniqueMeds = [...(new Set(parsedList.map(medication => medication.medication)))];
+        return uniqueMeds.map(medication => {
+            return {label: medication};
         });
-
-        const medSuggestions = Object.keys(meds).map((med) => {
-            return {label: med};
-        });
-
-        const doseSuggestions = Object.keys(doses).map((dose) => {
-            return {label: dose};
-        });
-
-        return [medSuggestions, doseSuggestions];
     }
 
     return [];
-};
+}
 
 export default function AddReminder1() {
+    // This is passed into the medication input
+    const [medValue, setMedValue] = useState(null);
+
+    // This is passed into the dose input and medication input
+    const [doseValue, setDoseValue] = useState(null);
+
+    const setDoseSuggestions = () => {
+        if (medValue) {
+            const medicationList = localStorage.getItem("medications");
+            const parsedList = JSON.parse(medicationList);
+            const doseSuggestions = {};
+
+            parsedList.forEach((medication) => {
+                const {medication: name, dose} = medication;
+
+                if (doseSuggestions[name]) {
+                    doseSuggestions[name] = [...doseSuggestions[name], dose];
+                } else {
+                    doseSuggestions[name] = [dose];
+                }
+            });
+
+            const medValueName = medValue.label;
+
+            const uniqueDoses = [...(new Set(doseSuggestions[medValueName].map(dose => dose)))];
+            return uniqueDoses.map(dose => {
+                return {label: dose}
+            });
+        }
+
+        return [];
+    }
+
     const {handleSubmit, control, formState} = useForm({
         mode: "onChange",
         resolver: yupResolver(validationSchema)
     });
 
     // If there are any registered medications
-    if (setSuggestions().length > 0) {
+    if (setNameSuggestions().length > 0) {
         return (
             <Container sx={containerSx}>
                 <Stack spacing={2} sx={stackSx}>
@@ -159,9 +180,11 @@ export default function AddReminder1() {
                     <Box
                         sx={boxSx}
                     >
-                        <MedicationInput control={control} suggestions={setSuggestions()[0]} variant={"outlined"}/>
+                        <MedicationInput control={control} suggestions={setNameSuggestions()} medValue={medValue}
+                                         setMedValue={setMedValue} setDoseValue={setDoseValue} variant={"outlined"}/>
 
-                        <DoseInput control={control} suggestions={setSuggestions()[1]} variant={"outlined"}/>
+                        <DoseInput control={control} suggestions={setDoseSuggestions()} doseValue={doseValue}
+                                   setDoseValue={setDoseValue} variant={"outlined"}/>
 
                         <Box>
                             <Button disabled={!formState.isValid}

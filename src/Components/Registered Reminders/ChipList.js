@@ -10,7 +10,7 @@ const chipSx = {
     mt: 0.75
 };
 
-export default function ChipList({type, parsedList, arr, parentId, forceUpdate}) {
+export default function ChipList({type, parsedList, arr, parentId, reminderUpdated, setReminderUpdated}) {
     if (type === "times") {
         arr.sort((a, b) => {
             return new Date('1970/01/01 ' + a) - new Date('1970/01/01 ' + b);
@@ -89,8 +89,8 @@ export default function ChipList({type, parsedList, arr, parentId, forceUpdate})
 
         localStorage.setItem("reminders", JSON.stringify(parsedList));
 
-        // This forces the reminder list to re-render
-        forceUpdate();
+        // This forces the reminder to re-render
+        setReminderUpdated(!reminderUpdated);
     };
 
     return (unique.map((chip, uIndex) => {

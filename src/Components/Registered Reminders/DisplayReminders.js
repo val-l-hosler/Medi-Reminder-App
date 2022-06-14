@@ -1,4 +1,4 @@
-import {useCallback, useState} from "react";
+import {useState} from "react";
 
 // Material UI Components
 import Box from "@mui/material/Box";
@@ -24,15 +24,14 @@ export default function DisplayReminders() {
         parsedList = parsedList.filter((index) => index.submitted === true);
     }
 
-    // This forces the component to re-render
-    const [, updateState] = useState();
-    const forceUpdate = useCallback(() => updateState({}), []);
+    // This forces the DisplayReminder component to re-render if a reminder is deleted
+    const [updated, setUpdated] = useState(false);
 
     let reminderComps;
 
     if (parsedList !== null && parsedList.length > 0) {
         reminderComps = parsedList.map((reminder) => {
-            return (<Reminder reminder={reminder} forceUpdate={forceUpdate} parsedList={parsedList}
+            return (<Reminder reminder={reminder} updated={updated} setUpdated={setUpdated} parsedList={parsedList}
                               key={"Reminder_" + reminder.id}/>)
         });
     } else {

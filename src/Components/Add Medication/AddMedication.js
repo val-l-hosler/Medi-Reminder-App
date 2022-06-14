@@ -12,6 +12,7 @@ import Typography from "@mui/material/Typography";
 // Custom Components
 import DoseInput from "../Inputs/DoseInput.js";
 import MedicationInput from "../Inputs/MedicationInput";
+import {useState} from "react";
 
 const doseSuggestions = [
     {label: "10 mg"},
@@ -87,6 +88,12 @@ const onSubmit = (data) => {
 };
 
 export default function AddMedication() {
+    // This is passed into the medication input
+    const [medValue, setMedValue] = useState(null);
+
+    // This is passed into the medication input
+    const [doseValue, setDoseValue] = useState(null);
+
     const {handleSubmit, control, formState} = useForm({
         mode: "onChange",
         resolver: yupResolver(validationSchema)
@@ -103,9 +110,11 @@ export default function AddMedication() {
                     sx={boxSx}
                 >
 
-                    <MedicationInput control={control} suggestions={medicationSuggestions} variant={"outlined"}/>
+                    <MedicationInput control={control} suggestions={medicationSuggestions} medValue={medValue}
+                                     setMedValue={setMedValue} setDoseValue={setDoseValue} variant={"outlined"}/>
 
-                    <DoseInput control={control} suggestions={doseSuggestions} variant={"outlined"}/>
+                    <DoseInput control={control} suggestions={doseSuggestions} doseValue={doseValue}
+                               setDoseValue={setDoseValue} variant={"outlined"}/>
 
                     <Button disabled={!formState.isValid} size="large" sx={buttonSx} type="submit"
                             variant="contained">Submit</Button>

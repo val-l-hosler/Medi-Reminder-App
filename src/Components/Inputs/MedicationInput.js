@@ -1,4 +1,3 @@
-import {useState} from "react";
 import {Controller} from "react-hook-form";
 
 // Material UI Components
@@ -10,13 +9,11 @@ const autoCompleteSx = {
     width: "100%"
 };
 
-export default function MedicationInput(params) {
-    const [medValue, setMedValue] = useState(null);
-
+export default function MedicationInput({control, suggestions, variant, medValue, setMedValue, setDoseValue}) {
     return (
         <Controller
             name="medication"
-            control={params.control}
+            control={control}
             render={({field: {ref, ...field}, fieldState: {error}}) => (
                 <Autocomplete
                     {...field}
@@ -27,8 +24,9 @@ export default function MedicationInput(params) {
                     onChange={(_event, value) => {
                         field.onChange(value.label);
                         setMedValue(value);
+                        setDoseValue(null);
                     }}
-                    options={params.suggestions}
+                    options={suggestions}
                     value={medValue}
                     sx={autoCompleteSx}
                     renderInput={(tfParams) => (
@@ -40,7 +38,7 @@ export default function MedicationInput(params) {
                             label="Medication"
                             name="medication"
                             type="search"
-                            variant={params.variant}
+                            variant={variant}
                             inputRef={ref}
                             {...tfParams}
                         />

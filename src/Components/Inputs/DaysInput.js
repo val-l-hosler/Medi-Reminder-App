@@ -21,13 +21,10 @@ const autoCompleteSx = {
     width: "100%"
 };
 
-export default function DaysInput({control, variant, setDays}) {
+export default function DaysInput({control, variant}) {
     const [daysOfWeekSuggestions, setOptions] = useState(initOptions);
     const [selected, setSelected] = useState([]);
 
-    if (setDays) {
-        console.log('in here')
-    }
     const onChangeDisabled = (_event, valueArr) => {
         setSelected(valueArr);
 

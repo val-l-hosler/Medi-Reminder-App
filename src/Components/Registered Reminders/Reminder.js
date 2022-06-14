@@ -95,7 +95,10 @@ const typographySx = {
     m: 1.5
 };
 
-export default function Reminder({parsedList, forceUpdate, reminder}) {
+export default function Reminder({parsedList, reminder, updated, setUpdated}) {
+    // This forces the Reminder component to re-render when a chip is deleted
+    const [reminderUpdated, setReminderUpdated] = useState(false);
+
     const getThisReminder = (reminderId, parsedReminders) => {
         let index;
 
@@ -146,7 +149,7 @@ export default function Reminder({parsedList, forceUpdate, reminder}) {
         });
 
         // This forces the reminder list to re-render
-        forceUpdate();
+        setUpdated(!updated);
     };
 
     // This handles the add time dialog
@@ -201,7 +204,7 @@ export default function Reminder({parsedList, forceUpdate, reminder}) {
         setOpenAddTime(false);
 
         // This forces the reminder list to re-render
-        forceUpdate();
+        setUpdated(!updated);
     };
 
     // This handles the delete medication confirmation dialog
@@ -230,7 +233,7 @@ export default function Reminder({parsedList, forceUpdate, reminder}) {
         setOpenDelete(false);
 
         // This forces the reminder list to re-render
-        forceUpdate();
+        setUpdated(!updated);
     };
 
     return (
@@ -245,14 +248,16 @@ export default function Reminder({parsedList, forceUpdate, reminder}) {
                     </Typography>
                     <Typography sx={typographyChipSx} variant="h5">
                         Days: <ChipList parentId={reminder.id} parsedList={parsedList} arr={reminder.days}
-                                        type={"days"} forceUpdate={forceUpdate}/>
+                                        type={"days"} reminderUpdated={reminderUpdated}
+                                        setReminderUpdated={setReminderUpdated}/>
                         {/* Note: the onDelete creates the icon in the appropriate spot and there isn't an onAdd option */}
                         <Chip color={"primary"} onDelete={handleClickAddDay} deleteIcon={<AddIcon/>} sx={chipSx}
                               label={"Add day"}/>
                     </Typography>
                     <Typography sx={typographyChipSx} variant="h5">
                         Times: <ChipList parentId={reminder.id} parsedList={parsedList} arr={reminder.times}
-                                         type={"times"} forceUpdate={forceUpdate}/>
+                                         type={"times"} reminderUpdated={reminderUpdated}
+                                         setReminderUpdated={setReminderUpdated}/>
                         {/* Note: the onDelete creates the icon in the appropriate spot and there isn't an onAdd option */}
                         <Chip color={"primary"} onDelete={handleClickAddTime} deleteIcon={<AddIcon/>} sx={chipSx}
                               label={"Add time"}/>

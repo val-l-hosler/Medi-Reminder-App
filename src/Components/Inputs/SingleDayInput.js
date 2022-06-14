@@ -20,11 +20,11 @@ const autoCompleteSx = {
     width: "100%"
 };
 
-export default function SingleDayInput(params) {
+export default function SingleDayInput({control, variant}) {
     return (
         <Controller
             name="day"
-            control={params.control}
+            control={control}
             render={({field: {ref, ...field}, fieldState: {error}}) => (
                 <Autocomplete
                     {...field}
@@ -47,7 +47,7 @@ export default function SingleDayInput(params) {
                             label="Day"
                             name="day"
                             type="search"
-                            variant={params.variant}
+                            variant={variant}
                             inputRef={ref}
                             {...tfParams}
                         />

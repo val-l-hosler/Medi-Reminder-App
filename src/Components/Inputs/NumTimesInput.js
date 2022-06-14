@@ -18,13 +18,13 @@ const autoCompleteSx = {
     width: "100%"
 };
 
-export default function NumTimesInput(params) {
+export default function NumTimesInput({control, variant}) {
     const [timesValue, setTimesValue] = useState(null);
 
     return (
         <Controller
             name="times"
-            control={params.control}
+            control={control}
             render={({field: {ref, ...field}, fieldState: {error}}) => (
                 <Autocomplete
                     {...field}
@@ -48,7 +48,7 @@ export default function NumTimesInput(params) {
                             label="Number of Times"
                             name="times"
                             type="search"
-                            variant={params.variant}
+                            variant={variant}
                             inputRef={ref}
                             {...tfParams}
                         />

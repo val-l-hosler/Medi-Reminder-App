@@ -5,22 +5,22 @@ import {Controller} from "react-hook-form";
 import TimePicker from "@mui/lab/TimePicker";
 import TextField from "@mui/material/TextField";
 
-export default function TimeInput(params) {
-    const name = "Time " + params.counter;
+export default function TimeInput({counter, getValues, register, control, setValue, variant}) {
+    const name = "Time " + counter;
 
     const [time, setTime] = useState(new Date("2000-01-01T00:00:00"));
-    const value = params.getValues(name);
+    const value = getValues(name);
 
     useEffect(() => {
-        params.register(name);
-    }, [name, params]);
+        register(name);
+    }, [name, register]);
     useEffect(() => {
         setTime(value || null);
     }, [setTime, value]);
 
     return (
         <Controller
-            control={params.control}
+            control={control}
             name={name}
             defaultValue={time}
             render={({field: {ref, ...field}}) => (
@@ -30,14 +30,14 @@ export default function TimeInput(params) {
                     label={name}
                     value={time}
                     onChange={(t) => {
-                        params.setValue(name, t, {shouldValidate: true, shouldDirty: true});
+                        setValue(name, t, {shouldValidate: true, shouldDirty: true});
                         setTime(t);
                     }}
                     renderInput={(tfParams) =>
                         <TextField
                             id={name}
                             name={name}
-                            variant={params.variant}
+                            variant={variant}
                             inputRef={ref}
                             {...tfParams}
                         />

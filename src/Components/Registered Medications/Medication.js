@@ -89,7 +89,7 @@ const updateDoseTypographySx = {
     textAlign: "center"
 };
 
-export default function Medication({forceUpdate, medication, parsedList}) {
+export default function Medication({medication, parsedList, updated, setUpdated}) {
     const {handleSubmit, control, formState} = useForm({
         mode: "onChange",
         resolver: yupResolver(validationSchema)
@@ -103,6 +103,9 @@ export default function Medication({forceUpdate, medication, parsedList}) {
     const handleCloseUpdate = () => {
         setOpenUpdate(false);
     };
+
+    // This is passed into the dose input
+    const [doseValue, setDoseValue] = useState(null);
 
     // Function for the update dose button
     const updateDose = (medicationId, parsedMedications, data) => {
@@ -156,7 +159,7 @@ export default function Medication({forceUpdate, medication, parsedList}) {
         setOpenDelete(false);
 
         // This forces the medication list to re-render
-        forceUpdate();
+        setUpdated(!updated);
     };
 
     return (
@@ -230,7 +233,8 @@ export default function Medication({forceUpdate, medication, parsedList}) {
                         <Box
                             sx={boxSx}
                         >
-                            <DoseInput control={control} suggestions={doseSuggestions} variant={"outlined"}/>
+                            <DoseInput control={control} suggestions={doseSuggestions} doseValue={doseValue}
+                                       setDoseValue={setDoseValue} variant={"outlined"}/>
 
                             <Button disabled={!formState.isValid} size="large"
                                     sx={formButtonSx} type="submit"

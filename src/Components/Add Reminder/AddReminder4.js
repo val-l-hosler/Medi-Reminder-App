@@ -131,7 +131,7 @@ export default function AddReminder4() {
 
     for (let i = 0; i < getNumber(); i++) {
         allTimesChips.push(<TimeInput setValue={setValue} getValues={getValues} register={register} control={control}
-                                 counter={i + 1} key={"TimeInputs_" + uuidv4()} variant={"outlined"}/>);
+                                      counter={i + 1} key={"TimeInputs_" + uuidv4()} variant={"outlined"}/>);
     }
 
     return (
