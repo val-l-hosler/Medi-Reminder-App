@@ -1,5 +1,3 @@
-import * as React from "react";
-
 // Material UI Components
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";

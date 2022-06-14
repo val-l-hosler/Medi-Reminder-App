@@ -1,4 +1,3 @@
-import * as React from "react";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import * as Yup from "yup";
@@ -119,12 +118,10 @@ const setSuggestions = () => {
             doses[medication.dose] = index;
         });
 
-        // {label: med}[]
         const medSuggestions = Object.keys(meds).map((med) => {
             return {label: med};
         });
 
-        // {label: dose}[]
         const doseSuggestions = Object.keys(doses).map((dose) => {
             return {label: dose};
         });

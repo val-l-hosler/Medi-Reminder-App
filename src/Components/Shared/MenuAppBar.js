@@ -1,5 +1,3 @@
-import * as React from "react";
-
 // Material UI Components
 import AppBar from "@mui/material/AppBar";
 import Button from "@mui/material/Button";

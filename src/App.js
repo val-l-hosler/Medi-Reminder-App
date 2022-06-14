@@ -2,7 +2,6 @@ import "./App.css";
 
 // Custom components
 import AddMedication from "./Components/Add Medication/AddMedication.js";
-// import AddMedication_B from "./Components/AddMedication_B.js";
 import AddReminder1 from "./Components/Add Reminder/AddReminder1.js";
 import AddReminder2 from "./Components/Add Reminder/AddReminder2.js";
 import AddReminder3 from "./Components/Add Reminder/AddReminder3.js";
