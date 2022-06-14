@@ -18,7 +18,7 @@ const containerSx = {
 export default function DisplayMedications() {
     // This is the array of medication objects that will be displayed on the cards
     const medicationList = localStorage.getItem("medications");
-    const parsedList = JSON.parse(medicationList);
+    const [parsedList, setParsedList] = useState(JSON.parse(medicationList));
 
     // This forces the DisplayMedications component to re-render after a medication has been deleted
     const [updated, setUpdated] = useState(false);
@@ -63,7 +63,7 @@ export default function DisplayMedications() {
         medicationComps = finalComponents.map((medication) => {
             return (
                 <Medication medication={medication} updated={updated} setUpdated={setUpdated} parsedList={parsedList}
-                            key={"Medication_" + medication.id}/>)
+                            setParsedList={setParsedList} keepMountd={true} key={"Medication_" + medication.id}/>)
         });
     } else {
         medicationComps = <NoRegisteredMedications/>;
