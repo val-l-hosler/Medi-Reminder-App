@@ -343,7 +343,7 @@ export default function Reminder({parsedList, reminder, updated, setUpdated}) {
 
             {/* Delete reminder confirmation dialog */}
             <Dialog
-                keepMounted={true}
+                // keepMounted={true}
                 open={openDelete}
                 onClose={handleCloseDelete}
             >

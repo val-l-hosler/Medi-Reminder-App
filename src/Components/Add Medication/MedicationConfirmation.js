@@ -27,7 +27,7 @@ const typographyMedicationSx = {
 const getMedication = () => {
     const medicationList = localStorage.getItem("medications");
     const parsed = JSON.parse(medicationList);
-    return (parsed[parsed.length - 1]);
+    return parsed[parsed.length - 1];
 };
 
 export default function MedicationConfirmation() {

@@ -196,7 +196,6 @@ export default function Medication({medication, parsedList, updated, setUpdated,
 
             {/* Delete medication confirmation dialog */}
             <Dialog
-                keepMounted={true}
                 open={openDelete}
                 onClose={handleCloseDelete}
             >
@@ -217,7 +216,6 @@ export default function Medication({medication, parsedList, updated, setUpdated,
 
             {/* Update dose dialog */}
             <Dialog
-                keepMounted={true}
                 open={openUpdate}
                 onClose={handleCloseUpdate}
             >
