@@ -158,6 +158,7 @@ export default function Medication({medication, parsedList, updated, setUpdated,
                 if (index > -1 && index !== i) {
                     updatedMedications.push(medication);
                 } else if (index === i) {
+                    console.log(JSON.stringify([medication.medication, medication.dose]), "stringifying");
                     setLastDeleted(JSON.stringify([medication.medication, medication.dose]));
                 }
             });

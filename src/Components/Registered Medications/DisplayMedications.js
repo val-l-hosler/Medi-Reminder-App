@@ -31,6 +31,8 @@ export default function DisplayMedications() {
         const comparedComponents = [];
         const dupeIndexes = [];
 
+        console.log(parsedList, "parsedList");
+
         // This makes it so the objs can be more easily compared
         for (const obj of parsedList) {
             stringified.push(JSON.stringify([obj.medication, obj.dose]));
@@ -39,8 +41,10 @@ export default function DisplayMedications() {
         // This checks for duplicates
         stringified.forEach((arr, index) => {
             if (!comparedComponents.includes(arr) && arr !== !lastDeleted) {
+                console.log(lastDeleted, "in if");
                 comparedComponents.push(arr);
             } else {
+                console.log(lastDeleted, "in else");
                 dupeIndexes.push(index);
             }
         });
