@@ -38,7 +38,7 @@ export default function DisplayMedications() {
 
         // This checks for duplicates
         stringified.forEach((arr, index) => {
-            if (!comparedComponents.includes(arr) && !lastDeleted) {
+            if (!comparedComponents.includes(arr) && arr !== !lastDeleted) {
                 comparedComponents.push(arr);
             } else {
                 dupeIndexes.push(index);
