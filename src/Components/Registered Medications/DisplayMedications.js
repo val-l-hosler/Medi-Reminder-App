@@ -49,6 +49,7 @@ export default function DisplayMedications() {
             if (!comparedComponents.includes(arr) && arr !== lastDeleted && arr !== lastUpdated) {
                 comparedComponents.push(arr);
             } else {
+                console.log(arr, "in else")
                 dupeIndexes.push(index);
             }
         });
@@ -67,8 +68,6 @@ export default function DisplayMedications() {
         }
 
         const finalComponents = copiedList.filter((index) => index !== "dupe");
-
-        console.log(finalComponents, "finalComponents")
 
         localStorage.setItem("medications", JSON.stringify(finalComponents));
 

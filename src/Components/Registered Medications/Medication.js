@@ -111,17 +111,17 @@ export default function Medication({medication, parsedList, updated, setUpdated,
     const updateDose = (medicationId, parsedMedications, data) => {
         const {dose: updatedDose} = data;
 
-        let med;
-
         for (const index of parsedMedications) {
             if (index.id === medicationId) {
-                med = index;
+                setLastUpdated(JSON.stringify([index.medication, index.dose]));
+                index.dose = updatedDose;
+                console.log(index, "in if", [index.medication, index.dose], "last updated")
             }
         }
 
-        med.dose = updatedDose;
+        console.log(parsedMedications, "in updateDose")
 
-        localStorage.setItem("medications", JSON.stringify([...parsedMedications]));
+        localStorage.setItem("medications", JSON.stringify(parsedMedications));
 
         // This forces the dialog to close
         setOpenUpdate(false);
