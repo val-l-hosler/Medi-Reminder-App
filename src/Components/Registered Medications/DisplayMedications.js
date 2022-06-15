@@ -60,11 +60,16 @@ export default function DisplayMedications() {
 
         localStorage.setItem("medications", JSON.stringify(finalComponents));
 
-        medicationComps = finalComponents.map((medication) => {
-            return (
-                <Medication medication={medication} updated={updated} setUpdated={setUpdated} parsedList={parsedList}
-                            setLastDeleted={setLastDeleted} key={"Medication_" + medication.id}/>)
-        });
+        if (finalComponents.length > 0) {
+            medicationComps = finalComponents.map((medication) => {
+                return (
+                    <Medication medication={medication} updated={updated} setUpdated={setUpdated}
+                                parsedList={parsedList}
+                                setLastDeleted={setLastDeleted} key={"Medication_" + medication.id}/>)
+            });
+        } else {
+            medicationComps = <NoRegisteredMedications/>;
+        }
     } else {
         medicationComps = <NoRegisteredMedications/>;
     }
