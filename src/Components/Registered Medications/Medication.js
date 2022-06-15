@@ -115,11 +115,8 @@ export default function Medication({medication, parsedList, updated, setUpdated,
             if (index.id === medicationId) {
                 setLastUpdated(JSON.stringify([index.medication, index.dose]));
                 index.dose = updatedDose;
-                console.log(index, "in if", [index.medication, index.dose], "last updated")
             }
         }
-
-        console.log(parsedMedications, "in updateDose")
 
         localStorage.setItem("medications", JSON.stringify(parsedMedications));
 
@@ -146,6 +143,7 @@ export default function Medication({medication, parsedList, updated, setUpdated,
         for (let i = 0; i < parsedMedications.length; i++) {
             if (parsedMedications[i].id === medicationId) {
                 index = i;
+                // This prevents dupes from the previous med/dose combination to show up in the list after updating
                 setLastUpdated(JSON.stringify([parsedMedications[i].medication, parsedMedications[i].dose]));
                 break;
             }
