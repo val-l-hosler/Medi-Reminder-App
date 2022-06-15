@@ -15,9 +15,9 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 
 // Custom Components
-import DoseInput from "../../Inputs/DoseInput.js";
-import MedicationInput from "../../Inputs/MedicationInput.js";
-import NoRegisteredMedications from "../../Registered Medications/NoRegisteredMedications";
+import DoseInput from "../Inputs/DoseInput.js";
+import MedicationInput from "../Inputs/MedicationInput.js";
+import NoRegisteredMedications from "../Registered Medications/NoRegisteredMedications";
 
 const validationSchema = Yup.object().shape({
     medication: Yup.string()

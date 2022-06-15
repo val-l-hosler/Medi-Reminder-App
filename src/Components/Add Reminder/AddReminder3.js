@@ -16,7 +16,7 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 
 // Custom Components
-import NumTimesInput from "../../Inputs/NumTimesInput.js";
+import NumTimesInput from "../Inputs/NumTimesInput.js";
 
 const validationSchema = Yup.object().shape({
     times: Yup.string()

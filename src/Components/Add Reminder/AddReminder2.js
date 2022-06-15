@@ -16,7 +16,7 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 
 // Custom Components
-import DaysInput from "../../Inputs/DaysInput.js";
+import DaysInput from "../Inputs/DaysInput.js";
 
 const validationSchema = Yup.object().shape({
     daysOfWeek: Yup.array()

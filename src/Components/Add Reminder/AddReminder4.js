@@ -16,7 +16,7 @@ import Typography from "@mui/material/Typography";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 
 // Custom Components
-import TimeInput from "../../Inputs/TimeInput.js";
+import TimeInput from "../Inputs/TimeInput.js";
 
 // Styles
 const boxSx = {
