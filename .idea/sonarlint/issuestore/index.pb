@@ -48,3 +48,21 @@ l
 <src/Components/Registered Reminders/NoRegisteredReminders.js,3\8\3892a9d51076d0554f5117d4fc65ae0fa3e371a5
 _
 /src/Components/Registered Reminders/Reminder.js,2\6\2602992cfdcd13e45501b0ec9e7a337b700cf59a
+[
++src/Components/Add Reminder/AddReminder2.js,5\8\58a615eecf0199d9485bb4e4623663c63f226dc1
+[
++src/Components/Add Reminder/AddReminder1.js,1\5\15ada5f82dabd222b64f8ed981209804c1099e5b
+[
++src/Components/Add Reminder/AddReminder3.js,1\6\167ca8d82069299c9b67964b68b25e7474821039
+[
++src/Components/Add Reminder/AddReminder4.js,5\4\54997eb2d3e8bf8023d86c413a09397cb6f992a2
+[
++src/Components/Add Reminder/AddReminder5.js,5\f\5f1c8a961f0575dd3105795ebab0c8077c21d9a8
+c
+3src/Components/Add Reminder/ReminderConfirmation.js,0\e\0ebb8c3cdcc520a80ce47f79a5cf196fdbc3c8cb
+_
+/src/Components/Registered Reminders/ChipList.js,9\d\9dde7d96bb656f5ce6b15ca7c68cd230a0ab31fe
+p
+@src/Components/Registered Medications/NoRegisteredMedications.js,3\3\3354f197fb5a50c1fcccb5a82e8ebd07196c5502
+g
+7src/Components/Registered Reminders/DisplayReminders.js,a\0\a00bbb67f08b4c835334cd2b7b599d9fd4689f2c

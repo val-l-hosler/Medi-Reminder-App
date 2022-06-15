@@ -89,7 +89,7 @@ const updateDoseTypographySx = {
     textAlign: "center"
 };
 
-export default function Medication({medication, parsedList, updated, setUpdated, setLastDeleted}) {
+export default function Medication({medication, parsedList, updated, setUpdated, setLastDeleted, setLastUpdated}) {
     const {handleSubmit, control, formState} = useForm({
         mode: "onChange",
         resolver: yupResolver(validationSchema)
@@ -146,6 +146,7 @@ export default function Medication({medication, parsedList, updated, setUpdated,
         for (let i = 0; i < parsedMedications.length; i++) {
             if (parsedMedications[i].id === medicationId) {
                 index = i;
+                setLastUpdated(JSON.stringify([parsedMedications[i].medication, parsedMedications[i].dose]));
                 break;
             }
         }

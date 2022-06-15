@@ -22,6 +22,9 @@ export default function DisplayMedications() {
     // I needed to add this because deleting dupes was not working in prod
     const [lastDeleted, setLastDeleted] = useState(null);
 
+    // I needed to add this because updating was not consistently working in prod
+    const [lastUpdated, setLastUpdated] = useState(null);
+
     // This is the array of medication objects that will be displayed on the cards
     const medicationList = localStorage.getItem("medications");
     const parsedList = JSON.parse(medicationList);
@@ -38,10 +41,12 @@ export default function DisplayMedications() {
             stringified.push(JSON.stringify([obj.medication, obj.dose]));
         }
 
+        console.log(stringified, "stringified")
+
         // This checks for duplicates
         // The arr is a stringified [med, dose]
         stringified.forEach((arr, index) => {
-            if (!comparedComponents.includes(arr) && arr !== lastDeleted) {
+            if (!comparedComponents.includes(arr) && arr !== lastDeleted && arr !== lastUpdated) {
                 comparedComponents.push(arr);
             } else {
                 dupeIndexes.push(index);
@@ -49,6 +54,8 @@ export default function DisplayMedications() {
         });
 
         const copiedList = [...parsedList];
+
+        console.log(copiedList, "copiedList")
 
         for (let i = 0; i < copiedList.length; i++) {
             for (const element of dupeIndexes) {
@@ -61,6 +68,8 @@ export default function DisplayMedications() {
 
         const finalComponents = copiedList.filter((index) => index !== "dupe");
 
+        console.log(finalComponents, "finalComponents")
+
         localStorage.setItem("medications", JSON.stringify(finalComponents));
 
         if (finalComponents.length > 0) {
@@ -68,7 +77,8 @@ export default function DisplayMedications() {
                 return (
                     <Medication medication={medication} updated={updated} setUpdated={setUpdated}
                                 parsedList={parsedList}
-                                setLastDeleted={setLastDeleted} key={"Medication_" + medication.id}/>)
+                                setLastDeleted={setLastDeleted} setLastUpdated={setLastUpdated}
+                                key={"Medication_" + medication.id}/>)
             });
         } else {
             medicationComps = <NoRegisteredMedications/>;
