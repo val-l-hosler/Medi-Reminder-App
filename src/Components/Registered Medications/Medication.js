@@ -164,6 +164,8 @@ export default function Medication({medication, parsedList, updated, setUpdated,
             });
         }
 
+        console.log(updatedMedications, "updatedMedications");
+        
         localStorage.setItem("medications", JSON.stringify(updatedMedications));
 
         // This forces the dialog to close

@@ -38,9 +38,11 @@ export default function DisplayMedications() {
             stringified.push(JSON.stringify([obj.medication, obj.dose]));
         }
 
+        console.log(stringified, "stringified");
+
         // This checks for duplicates
         stringified.forEach((arr, index) => {
-            if (!comparedComponents.includes(arr) && arr !== !lastDeleted) {
+            if (!comparedComponents.includes(arr) && arr !== lastDeleted) {
                 console.log(lastDeleted, "in if");
                 comparedComponents.push(arr);
             } else {
@@ -50,6 +52,7 @@ export default function DisplayMedications() {
         });
 
         const copiedList = [...parsedList];
+        console.log(copiedList, "copiedList");
 
         for (let i = 0; i < copiedList.length; i++) {
             for (const element of dupeIndexes) {
@@ -61,6 +64,7 @@ export default function DisplayMedications() {
         }
 
         const finalComponents = copiedList.filter((index) => index !== "dupe");
+        console.log(finalComponents, "finalComponents");
 
         localStorage.setItem("medications", JSON.stringify(finalComponents));
 
