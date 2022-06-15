@@ -16,17 +16,19 @@ const containerSx = {
 };
 
 export default function DisplayMedications() {
+    // This forces the DisplayMedications component to re-render after a medication has been deleted
+    const [updated, setUpdated] = useState(false);
+
+    // I needed to add this because deleting dupes was not working in prod
+    const [lastDeleted, setLastDeleted] = useState(null);
+
     // This is the array of medication objects that will be displayed on the cards
     const medicationList = localStorage.getItem("medications");
     const parsedList = JSON.parse(medicationList);
 
-    // This forces the DisplayMedications component to re-render after a medication has been deleted
-    const [updated, setUpdated] = useState(false);
-
     let medicationComps;
 
-    // I also set this condition (localStorage.getItem("medications").length > 2) because if the array is empty, the length === 2
-    if (localStorage.getItem("medications") !== null && localStorage.getItem("medications").length > 2) {
+    if (parsedList && parsedList.length > 0) {
         const stringified = [];
         const comparedComponents = [];
         const dupeIndexes = [];
@@ -37,8 +39,9 @@ export default function DisplayMedications() {
         }
 
         // This checks for duplicates
+        // The arr is a stringified [med, dose]
         stringified.forEach((arr, index) => {
-            if (!comparedComponents.includes(arr)) {
+            if (!comparedComponents.includes(arr) && arr !== lastDeleted) {
                 comparedComponents.push(arr);
             } else {
                 dupeIndexes.push(index);
@@ -60,11 +63,16 @@ export default function DisplayMedications() {
 
         localStorage.setItem("medications", JSON.stringify(finalComponents));
 
-        medicationComps = finalComponents.map((medication) => {
-            return (
-                <Medication medication={medication} updated={updated} setUpdated={setUpdated} parsedList={parsedList}
-                            key={"Medication_" + medication.id}/>)
-        });
+        if (finalComponents.length > 0) {
+            medicationComps = finalComponents.map((medication) => {
+                return (
+                    <Medication medication={medication} updated={updated} setUpdated={setUpdated}
+                                parsedList={parsedList}
+                                setLastDeleted={setLastDeleted} key={"Medication_" + medication.id}/>)
+            });
+        } else {
+            medicationComps = <NoRegisteredMedications/>;
+        }
     } else {
         medicationComps = <NoRegisteredMedications/>;
     }

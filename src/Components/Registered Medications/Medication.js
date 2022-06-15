@@ -89,7 +89,7 @@ const updateDoseTypographySx = {
     textAlign: "center"
 };
 
-export default function Medication({medication, parsedList, updated, setUpdated}) {
+export default function Medication({medication, parsedList, updated, setUpdated, setLastDeleted}) {
     const {handleSubmit, control, formState} = useForm({
         mode: "onChange",
         resolver: yupResolver(validationSchema)
@@ -120,10 +120,14 @@ export default function Medication({medication, parsedList, updated, setUpdated}
         }
 
         med.dose = updatedDose;
-        localStorage.setItem("medications", JSON.stringify(parsedMedications));
+
+        localStorage.setItem("medications", JSON.stringify([...parsedMedications]));
 
         // This forces the dialog to close
         setOpenUpdate(false);
+
+        // This forces the medication list to re-render
+        setUpdated(!updated);
     };
 
     // This handles the delete medication confirmation dialog
@@ -137,7 +141,7 @@ export default function Medication({medication, parsedList, updated, setUpdated}
 
     // Function for the delete med button
     const deleteMedication = (medicationId, parsedMedications) => {
-        let index;
+        let index = -1;
 
         for (let i = 0; i < parsedMedications.length; i++) {
             if (parsedMedications[i].id === medicationId) {
@@ -146,14 +150,20 @@ export default function Medication({medication, parsedList, updated, setUpdated}
             }
         }
 
+        let updatedMedications = [];
+
         if (parsedMedications.length > 0) {
             // This removes the appropriate index of the array of medication objects
-            parsedMedications.splice(index, 1);
-        } else {
-            parsedMedications = [];
+            parsedMedications.forEach((medication, i) => {
+                if (index > -1 && index !== i) {
+                    updatedMedications.push(medication);
+                } else if (index === i) {
+                    setLastDeleted(JSON.stringify([medication.medication, medication.dose]));
+                }
+            });
         }
 
-        localStorage.setItem("medications", JSON.stringify([...parsedMedications]));
+        localStorage.setItem("medications", JSON.stringify(updatedMedications));
 
         // This forces the dialog to close
         setOpenDelete(false);
