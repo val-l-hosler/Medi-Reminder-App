@@ -134,6 +134,8 @@ export default function Medication({medication, medicationList, setMedicationLis
             }
         }
 
+        // The dupes arr contains indexes that identify the dupes to thr originally passed in medication, so it can be filtered
+        // in the list.
         localStorage.setItem("medications", JSON.stringify(addDupesArr(updatedMedications, currMed)));
         setMedicationList(updatedMedications);
 
@@ -163,6 +165,8 @@ export default function Medication({medication, medicationList, setMedicationLis
 
         const updatedMedications = [...parsedMedications];
 
+        // The dupes arr contains indexes that identify the dupes to thr originally passed in medication, so it can be filtered
+        // in the list.
         localStorage.setItem("medications", JSON.stringify(addDupesArr(updatedMedications, currMed)));
         setMedicationList(updatedMedications);
 

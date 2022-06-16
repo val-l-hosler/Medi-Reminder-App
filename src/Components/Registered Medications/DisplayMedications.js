@@ -60,7 +60,6 @@ export default function DisplayMedications() {
             localStorage.setItem("medications", JSON.stringify(finalComponents));
 
             if (finalComponents.length > 0) {
-                // eslint-disable-next-line react-hooks/exhaustive-deps
                 setMedicationComps(finalComponents.map((medication) => {
                     return (<Medication medication={medication} medicationList={medicationList}
                                         setMedicationList={setMedicationList}
