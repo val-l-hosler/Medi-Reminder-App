@@ -89,6 +89,20 @@ const updateDoseTypographySx = {
     textAlign: "center"
 };
 
+// Functions
+// This adds "dupe" for any obj that was the same as the originally updated/deleted one
+const addDupesArr = (updatedMedications, currMed) => {
+    updatedMedications.forEach((uMed, i) => {
+        const arr = JSON.stringify([uMed.medication, uMed.dose]);
+        // This sets up the arr so dupes can be deleted in DisplayMedication
+        if (arr === currMed) {
+            updatedMedications[i] = "dupe";
+        }
+    });
+
+    return updatedMedications;
+};
+
 export default function Medication({medication, medicationList, setMedicationList}) {
     const {handleSubmit, control, formState} = useForm({
         mode: "onChange",
@@ -109,16 +123,18 @@ export default function Medication({medication, medicationList, setMedicationLis
 
     // Function for the update dose button
     const updateDose = (medicationId, parsedMedications, data) => {
+        let currMed = "";
         const {dose: updatedDose} = data;
         const updatedMedications = [...parsedMedications];
 
         for (const index of updatedMedications) {
             if (index.id === medicationId) {
+                currMed = JSON.stringify([index.medication, index.dose]);
                 index.dose = updatedDose;
             }
         }
 
-        localStorage.setItem("medications", JSON.stringify(updatedMedications));
+        localStorage.setItem("medications", JSON.stringify(addDupesArr(updatedMedications, currMed)));
         setMedicationList(updatedMedications);
 
         // This forces the dialog to close
@@ -147,15 +163,7 @@ export default function Medication({medication, medicationList, setMedicationLis
 
         const updatedMedications = [...parsedMedications];
 
-        updatedMedications.forEach((uMed, i) => {
-            const arr = JSON.stringify([uMed.medication, uMed.dose]);
-            // This sets up the arr so dupes can be deleted in DisplayMedication
-            if(arr === currMed) {
-                updatedMedications[i] = "dupe";
-            }
-        });
-
-        localStorage.setItem("medications", JSON.stringify(updatedMedications));
+        localStorage.setItem("medications", JSON.stringify(addDupesArr(updatedMedications, currMed)));
         setMedicationList(updatedMedications);
 
         // This forces the dialog to close
