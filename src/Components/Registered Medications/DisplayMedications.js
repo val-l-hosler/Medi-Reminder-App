@@ -23,12 +23,6 @@ export default function DisplayMedications() {
     // Medication component list state
     const [medicationComps, setMedicationComps] = useState(<NoRegisteredMedications/>);
 
-    // I needed to add this because deleting dupes was not working in prod
-    const [lastDeleted, setLastDeleted] = useState(null);
-
-    // I needed to add this because updating was not consistently working in prod with dupes
-    const [lastUpdated, setLastUpdated] = useState(null);
-    
     useEffect(() => {
         if (medicationList && medicationList.length > 0) {
             const stringified = [];
@@ -43,7 +37,7 @@ export default function DisplayMedications() {
             // This checks for duplicates
             // The arr is a stringified [med, dose]
             stringified.forEach((arr, index) => {
-                if (!comparedComponents.includes(arr) && arr !== lastDeleted && arr !== lastUpdated) {
+                if (!comparedComponents.includes(arr)) {
                     comparedComponents.push(arr);
                 } else {
                     dupeIndexes.push(index);
@@ -69,7 +63,6 @@ export default function DisplayMedications() {
                 // eslint-disable-next-line react-hooks/exhaustive-deps
                 setMedicationComps(finalComponents.map((medication) => {
                     return (<Medication medication={medication} medicationList={medicationList}
-                                        setLastDeleted={setLastDeleted} setLastUpdated={setLastUpdated}
                                         setMedicationList={setMedicationList}
                                         key={"Medication_" + medication.id}
                         />
@@ -79,7 +72,7 @@ export default function DisplayMedications() {
                 setMedicationComps(<NoRegisteredMedications/>);
             }
         }
-    }, [lastDeleted, lastUpdated, medicationList]);
+    }, [medicationList]);
 
     return (
         <Container sx={containerSx}>

@@ -89,7 +89,7 @@ const updateDoseTypographySx = {
     textAlign: "center"
 };
 
-export default function Medication({medication, medicationList, setLastDeleted, setLastUpdated, setMedicationList}) {
+export default function Medication({medication, medicationList, setMedicationList}) {
     const {handleSubmit, control, formState} = useForm({
         mode: "onChange",
         resolver: yupResolver(validationSchema)
@@ -136,29 +136,24 @@ export default function Medication({medication, medicationList, setLastDeleted, 
 
     // Function for the delete med button
     const deleteMedication = (medicationId, parsedMedications) => {
-        let index = -1;
+        let currMed = "";
 
-        for (let i = 0; i < parsedMedications.length; i++) {
-            if (parsedMedications[i].id === medicationId) {
-                index = i;
-                // This prevents dupes from the previous med/dose combination to show up in the list after updating
-                setLastUpdated(JSON.stringify([parsedMedications[i].medication, parsedMedications[i].dose]));
+        for (const element of parsedMedications) {
+            if (element.id === medicationId) {
+                currMed = JSON.stringify([medication.medication, medication.dose]);
                 break;
             }
         }
 
-        let updatedMedications = [];
+        const updatedMedications = [...parsedMedications];
 
-        if (parsedMedications.length > 0) {
-            // This removes the appropriate index of the array of medication objects
-            parsedMedications.forEach((pMed, i) => {
-                if (index > -1 && index !== i) {
-                    updatedMedications.push(pMed);
-                } else {
-                    setLastDeleted(JSON.stringify([pMed.medication, pMed.dose]));
-                }
-            });
-        }
+        updatedMedications.forEach((uMed, i) => {
+            const arr = JSON.stringify([uMed.medication, uMed.dose]);
+            // This sets up the arr so dupes can be deleted in DisplayMedication
+            if(arr === currMed) {
+                updatedMedications[i] = "dupe";
+            }
+        });
 
         localStorage.setItem("medications", JSON.stringify(updatedMedications));
         setMedicationList(updatedMedications);
