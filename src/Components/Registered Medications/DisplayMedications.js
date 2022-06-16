@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 // Material UI Components
 import Box from "@mui/material/Box";
@@ -16,71 +16,70 @@ const containerSx = {
 };
 
 export default function DisplayMedications() {
-    // This forces the DisplayMedications component to re-render after a medication has been deleted
-    const [updated, setUpdated] = useState(false);
+    // This is the array of medication objects that will be displayed on the cards
+    const storedList = localStorage.getItem("medications");
+    const [medicationList, setMedicationList] = useState(JSON.parse(storedList));
+
+    // Medication component list state
+    const [medicationComps, setMedicationComps] = useState(<NoRegisteredMedications/>);
 
     // I needed to add this because deleting dupes was not working in prod
     const [lastDeleted, setLastDeleted] = useState(null);
 
     // I needed to add this because updating was not consistently working in prod with dupes
     const [lastUpdated, setLastUpdated] = useState(null);
+    
+    useEffect(() => {
+        if (medicationList && medicationList.length > 0) {
+            const stringified = [];
+            const comparedComponents = [];
+            const dupeIndexes = [];
 
-    // This is the array of medication objects that will be displayed on the cards
-    const medicationList = localStorage.getItem("medications");
-    const parsedList = JSON.parse(medicationList);
-
-    let medicationComps;
-
-    if (parsedList && parsedList.length > 0) {
-        const stringified = [];
-        const comparedComponents = [];
-        const dupeIndexes = [];
-
-        // This makes it so the objs can be more easily compared
-        for (const obj of parsedList) {
-            stringified.push(JSON.stringify([obj.medication, obj.dose]));
-        }
-
-        // This checks for duplicates
-        // The arr is a stringified [med, dose]
-        stringified.forEach((arr, index) => {
-            if (!comparedComponents.includes(arr) && arr !== lastDeleted && arr !== lastUpdated) {
-                comparedComponents.push(arr);
-            } else {
-                dupeIndexes.push(index);
+            // This makes it so the objs can be more easily compared
+            for (const obj of medicationList) {
+                stringified.push(JSON.stringify([obj.medication, obj.dose]));
             }
-        });
 
-        const copiedList = [...parsedList];
+            // This checks for duplicates
+            // The arr is a stringified [med, dose]
+            stringified.forEach((arr, index) => {
+                if (!comparedComponents.includes(arr) && arr !== lastDeleted && arr !== lastUpdated) {
+                    comparedComponents.push(arr);
+                } else {
+                    dupeIndexes.push(index);
+                }
+            });
 
-        for (let i = 0; i < copiedList.length; i++) {
-            for (const element of dupeIndexes) {
-                if (i === element) {
-                    copiedList[i] = "dupe";
-                    break;
+            const updatedList = [...medicationList];
+
+            for (let i = 0; i < updatedList.length; i++) {
+                for (const element of dupeIndexes) {
+                    if (i === element) {
+                        updatedList[i] = "dupe";
+                        break;
+                    }
                 }
             }
+
+            const finalComponents = updatedList.filter((index) => index !== "dupe");
+
+            localStorage.setItem("medications", JSON.stringify(finalComponents));
+
+            if (finalComponents.length > 0) {
+                // eslint-disable-next-line react-hooks/exhaustive-deps
+                setMedicationComps(finalComponents.map((medication) => {
+                    return (<Medication medication={medication} medicationList={medicationList}
+                                        setLastDeleted={setLastDeleted} setLastUpdated={setLastUpdated}
+                                        setMedicationList={setMedicationList}
+                                        key={"Medication_" + medication.id}
+                        />
+                    )
+                }));
+            } else {
+                setMedicationComps(<NoRegisteredMedications/>);
+            }
         }
-
-        const finalComponents = copiedList.filter((index) => index !== "dupe");
-
-        localStorage.setItem("medications", JSON.stringify(finalComponents));
-
-        if (finalComponents.length > 0) {
-            medicationComps = finalComponents.map((medication) => {
-                return (
-                    <Medication medication={medication} updated={updated} setUpdated={setUpdated}
-                                parsedList={parsedList}
-                                setLastDeleted={setLastDeleted} setLastUpdated={setLastUpdated}
-                                key={"Medication_" + medication.id}/>)
-            });
-        } else {
-            medicationComps = <NoRegisteredMedications/>;
-        }
-
-    } else { // This catches if the parsedList is initially empty
-        medicationComps = <NoRegisteredMedications/>;
-    }
+    }, [lastDeleted, lastUpdated, medicationList]);
 
     return (
         <Container sx={containerSx}>
@@ -89,5 +88,4 @@ export default function DisplayMedications() {
             </Box>
         </Container>
     );
-
 }

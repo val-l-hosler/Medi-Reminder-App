@@ -89,7 +89,7 @@ const updateDoseTypographySx = {
     textAlign: "center"
 };
 
-export default function Medication({medication, parsedList, updated, setUpdated, setLastDeleted, setLastUpdated}) {
+export default function Medication({medication, medicationList, setLastDeleted, setLastUpdated, setMedicationList}) {
     const {handleSubmit, control, formState} = useForm({
         mode: "onChange",
         resolver: yupResolver(validationSchema)
@@ -110,21 +110,19 @@ export default function Medication({medication, parsedList, updated, setUpdated,
     // Function for the update dose button
     const updateDose = (medicationId, parsedMedications, data) => {
         const {dose: updatedDose} = data;
+        const updatedMedications = [...parsedMedications];
 
-        for (const index of parsedMedications) {
+        for (const index of updatedMedications) {
             if (index.id === medicationId) {
-                setLastUpdated(JSON.stringify([index.medication, index.dose]));
                 index.dose = updatedDose;
             }
         }
 
-        localStorage.setItem("medications", JSON.stringify(parsedMedications));
+        localStorage.setItem("medications", JSON.stringify(updatedMedications));
+        setMedicationList(updatedMedications);
 
         // This forces the dialog to close
         setOpenUpdate(false);
-
-        // This forces the medication list to re-render
-        setUpdated(!updated);
     };
 
     // This handles the delete medication confirmation dialog
@@ -153,22 +151,20 @@ export default function Medication({medication, parsedList, updated, setUpdated,
 
         if (parsedMedications.length > 0) {
             // This removes the appropriate index of the array of medication objects
-            parsedMedications.forEach((medication, i) => {
+            parsedMedications.forEach((pMed, i) => {
                 if (index > -1 && index !== i) {
-                    updatedMedications.push(medication);
-                } else if (index === i) {
-                    setLastDeleted(JSON.stringify([medication.medication, medication.dose]));
+                    updatedMedications.push(pMed);
+                } else {
+                    setLastDeleted(JSON.stringify([pMed.medication, pMed.dose]));
                 }
             });
         }
 
         localStorage.setItem("medications", JSON.stringify(updatedMedications));
+        setMedicationList(updatedMedications);
 
         // This forces the dialog to close
         setOpenDelete(false);
-
-        // This forces the medication list to re-render
-        setUpdated(!updated);
     };
 
     return (
@@ -204,7 +200,7 @@ export default function Medication({medication, parsedList, updated, setUpdated,
                         delete {medication.dose} of {medication.medication}? </Typography>
 
                     <Box>
-                        <Button onClick={() => deleteMedication(medication.id, parsedList)}
+                        <Button onClick={() => deleteMedication(medication.id, medicationList)}
                                 size="large"
                                 sx={buttonSx} variant="contained">Yes</Button>
                         <Button onClick={handleCloseDelete} color="error"
@@ -216,6 +212,7 @@ export default function Medication({medication, parsedList, updated, setUpdated,
 
             {/* Update dose dialog */}
             <Dialog
+                keepMounted={true}
                 open={openUpdate}
                 onClose={handleCloseUpdate}
             >
@@ -232,7 +229,7 @@ export default function Medication({medication, parsedList, updated, setUpdated,
                 </DialogTitle>
 
                 <Box sx={dialogBoxSx}>
-                    <form onSubmit={handleSubmit((data) => updateDose(medication.id, parsedList, data))} noValidate>
+                    <form onSubmit={handleSubmit((data) => updateDose(medication.id, medicationList, data))} noValidate>
                         <Typography sx={updateDoseTypographySx} variant="h5">
                             Update dose
                         </Typography>
