@@ -24,7 +24,7 @@ const getLastReminder = () => {
     return parsedList[parsedList.length - 1];
 };
 
-const ConfirmationMessage = () => {
+export default function ConfirmationMessage() {
     const {medication, dose, days, times} = getLastReminder();
 
     return (
@@ -51,6 +51,4 @@ const ConfirmationMessage = () => {
             <Divider sx={{mb: 3.75, mt: 2.75}}/>
         </Box>
     );
-};
-
-export default ConfirmationMessage;
+}

@@ -4,33 +4,34 @@ import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 
+// Styles
+const buttonSx = {
+    fontSize: "17px",
+    height: "5.75ch",
+    width: "100%"
+};
+
+const containerSx = {
+    mb: 5,
+    mt: 5,
+    pl: 5,
+    pr: 5,
+    width: "100%"
+};
+
+const typographyMedicationSx = {
+    mb: 4,
+    textAlign: "center"
+};
+
+// Functions
+const getReminder = () => {
+    const reminderList = localStorage.getItem("reminders");
+    const parsedList = JSON.parse(reminderList);
+    return parsedList[parsedList.length - 1];
+};
+
 export default function ReminderConfirmation() {
-    // Styles
-    const buttonSx = {
-        fontSize: "17px",
-        height: "5.75ch",
-        width: "100%"
-    };
-
-    const containerSx = {
-        mb: 5,
-        mt: 5,
-        pl: 5,
-        pr: 5,
-        width: "100%"
-    };
-
-    const typographyMedicationSx = {
-        mb: 4,
-        textAlign: "center"
-    };
-
-    const getReminder = () => {
-        const reminderList = localStorage.getItem("reminders");
-        const parsedList = JSON.parse(reminderList);
-        return parsedList[parsedList.length - 1];
-    };
-
     return (
         <Container sx={containerSx}>
             <Box style={{flexDirection: "column"}}>

@@ -3,11 +3,23 @@ import {v4 as uuidv4} from "uuid";
 // Material UI Components
 import Chip from "@mui/material/Chip";
 
+// Styles
 const chipSx = {
     fontSize: 17,
     mb: 0.75,
     mr: 1.5,
     mt: 0.75
+};
+
+// Functions
+const updateList = (parsedList, parentId, type, editableUnique) => {
+    for (const reminder of parsedList) {
+        if (reminder.id === parentId) {
+            // This resets the appropriate object's key/value pair with the updated list
+            reminder[type] = [...editableUnique];
+            break;
+        }
+    }
 };
 
 export default function ChipList({type, parsedList, arr, parentId, reminderUpdated, setReminderUpdated}) {
@@ -63,29 +75,17 @@ export default function ChipList({type, parsedList, arr, parentId, reminderUpdat
             // This removes all the other days
             editableUnique.splice(1);
 
-            for (const reminder of parsedList) {
-                if (reminder.id === parentId) {
-                    // This resets the appropriate object's key/value pair with the updated list
-                    reminder[type] = editableUnique;
-                    break;
-                }
-            }
+            updateList(parsedList, parentId, type, editableUnique);
 
             localStorage.setItem("reminders", JSON.stringify(parsedList));
         }
     }
 
-    const handleDelete = (uIdx) => {
+    const handleDelete = (uIdx, editableUniqueArr) => {
         // This removes the appropriate index from the array that is passed into the params
-        editableUnique.splice(uIdx, 1);
+        editableUniqueArr.splice(uIdx, 1);
 
-        for (const reminder of parsedList) {
-            if (reminder.id === parentId) {
-                // This resets the appropriate object's key/value pair with the updated list
-                reminder[type] = editableUnique;
-                break;
-            }
-        }
+        updateList(parsedList, parentId, type, editableUniqueArr);
 
         localStorage.setItem("reminders", JSON.stringify(parsedList));
 
@@ -96,7 +96,7 @@ export default function ChipList({type, parsedList, arr, parentId, reminderUpdat
     return (unique.map((chip, uIndex) => {
         const chipKey = "Chip_" + uuidv4();
 
-        return (<Chip onDelete={() => handleDelete(uIndex)} sx={chipSx} key={chipKey}
+        return (<Chip onDelete={() => handleDelete(uIndex, editableUnique)} sx={chipSx} key={chipKey}
                       label={chip}/>);
     }));
 }

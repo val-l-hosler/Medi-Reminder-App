@@ -55,7 +55,7 @@ const typographySx = {
     textAlign: "center"
 };
 
-// Components -> this could be its own component
+// Components
 const breadcrumbs = [
     <Typography key="1" color="text.primary">
         Name & Dose
@@ -105,7 +105,6 @@ const onSubmit = (data) => {
         });
 };
 
-// This does not need to be in the component because it doesn't use hooks
 const setNameSuggestions = () => {
     const medicationList = localStorage.getItem("medications");
     const parsedList = JSON.parse(medicationList);

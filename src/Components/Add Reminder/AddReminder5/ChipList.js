@@ -11,7 +11,7 @@ const chipSx = {
     mt: 0.75
 };
 
-const ChipList = ({arr, type}) => {
+export default function ChipList({arr, type}) {
     if (type === "times") {
         arr.sort((a, b) => {
             return new Date('1970/01/01 ' + a) - new Date('1970/01/01 ' + b);
@@ -39,6 +39,4 @@ const ChipList = ({arr, type}) => {
     return (unique.map((chip) => {
         return (<Chip sx={chipSx} key={"Chip_" + uuidv4()} label={chip}/>);
     }));
-};
-
-export default ChipList;
+}

@@ -24,6 +24,7 @@ const typographyMedicationSx = {
     textAlign: "center"
 };
 
+// Functions
 const getMedication = () => {
     const medicationList = localStorage.getItem("medications");
     const parsed = JSON.parse(medicationList);

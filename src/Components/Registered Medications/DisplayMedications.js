@@ -24,7 +24,10 @@ export default function DisplayMedications() {
     const [medicationComps, setMedicationComps] = useState(<NoRegisteredMedications/>);
 
     useEffect(() => {
-        if (medicationList && medicationList.length > 0) {
+        // This helps prevent a race condition
+        let active = true;
+
+        if (active && medicationList && medicationList.length > 0) {
             const stringified = [];
             const comparedComponents = [];
             const dupeIndexes = [];
@@ -71,6 +74,10 @@ export default function DisplayMedications() {
                 setMedicationComps(<NoRegisteredMedications/>);
             }
         }
+
+        return () => {
+            active = false;
+        };
     }, [medicationList]);
 
     return (
