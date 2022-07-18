@@ -20,6 +20,8 @@ const updateList = (parsedList, parentId, type, editableUnique) => {
             break;
         }
     }
+
+    localStorage.setItem("reminders", JSON.stringify(parsedList));
 };
 
 export default function ChipList({type, parsedList, arr, parentId, reminderUpdated, setReminderUpdated}) {
@@ -76,8 +78,6 @@ export default function ChipList({type, parsedList, arr, parentId, reminderUpdat
             editableUnique.splice(1);
 
             updateList(parsedList, parentId, type, editableUnique);
-
-            localStorage.setItem("reminders", JSON.stringify(parsedList));
         }
     }
 
@@ -86,8 +86,6 @@ export default function ChipList({type, parsedList, arr, parentId, reminderUpdat
         editableUniqueArr.splice(uIdx, 1);
 
         updateList(parsedList, parentId, type, editableUniqueArr);
-
-        localStorage.setItem("reminders", JSON.stringify(parsedList));
 
         // This forces the reminder to re-render
         setReminderUpdated(!reminderUpdated);
